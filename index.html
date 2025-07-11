@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Somos Producción - Calendar</title>
+    <!-- Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- html2canvas CDN for capturing HTML elements as images -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- jsPDF CDN for generating PDF documents -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* Custom styles for the application */
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: #fffbeb;
+            /* Light yellow background, similar to brand */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            /* Align to top for better content display */
+            min-height: 100vh;
+            padding: 1rem;
+            /* Reduced padding for mobile */
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            /* Rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            /* Soft shadow */
+            padding: 1.5rem;
+            /* Reduced default padding */
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Enhanced responsive padding */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.5rem;
+                /* Even smaller body padding on mobile */
+            }
+
+            .container {
+                padding: 1rem;
+                /* Smaller padding on tablets/móviles */
+                border-radius: 0.75rem;
+                /* Slightly smaller border radius */
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            /* Even smaller mobile screens */
+            body {
+                padding: 0.25rem;
+                /* Minimal body padding */
+            }
+
+            .container {
+                padding: 0.75rem;
+                /* Smallest padding on very small móviles */
+                border-radius: 0.5rem;
+                /* Smaller border radius */
+            }
+        }
+
+        .logo-header {
+            margin-bottom: 1rem;
+            /* Reduced margin for mobile */
+        }
+
+        .logo-header img {
+            max-width: 200px;
+            /* Smaller logo on mobile */
+            height: auto;
+            margin: 0 auto;
+            /* Center the logo */
+            border-radius: 0.5rem;
+            /* Slightly rounded corners for the logo image */
+        }
+
+        /* Mobile-first responsive logo sizing */
+        @media (max-width: 768px) {
+            .logo-header img {
+                max-width: 160px;
+                /* Even smaller on tablets */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-header img {
+                max-width: 140px;
+                /* Smallest on mobile */
+            }
+        }
+
+        h1 {
+            color: #1a202c;
+            /* Dark gray text for contrast */
+            margin-bottom: 1.5rem;
+            /* Reduced margin */
+            font-size: 2rem;
+            /* Smaller title for mobile */
+            font-weight: 700;
+            /* Bold */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            /* Smaller gap */
+            flex-wrap: wrap;
+            /* Allow wrapping on very small screens */
+        }
+
+        /* Responsive title sizing */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.75rem;
+                margin-bottom: 1.25rem;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                gap: 0.5rem;
+            }
+        }
+
+        h1 svg {
+            width: 50px;
+            /* Smaller SVG for mobile */
+            height: 50px;
+            fill: #020200;
+            /* Ensure SVG paths are filled with black for contrast */
+            flex-shrink: 0;
+            /* Prevent SVG from shrinking */
+        }
+
+        /* Responsive SVG sizing */
+        @media (max-width: 768px) {
+            h1 svg {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 svg {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        .main-columns-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .main-columns-layout {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+        }
+
+        .tables-column-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        @media (min-width: 768px) {
+            .tables-column-group {
+                flex-direction: row;
+            }
+        }
+
+        .column {
+            background-color: #f8fafc;
+            /* Lighter background for columns */
+            border: 1px solid #e2e8f0;
+            /* Light border */
+            border-radius: 0.75rem;
+            /* Rounded corners */
+            padding: 1.25rem;
+            /* Reduced padding */
+            width: 100%;
+            /* Full width on mobile */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            /* Subtle shadow */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Enhanced mobile padding for columns */
+        @media (max-width: 480px) {
+            .column {
+                padding: 1rem;
+                border-radius: 0.5rem;
+            }
+        }
+
+        /* Specific column colors */
+        #friday-column {
+            background-color: #e0f2fe;
+            /* Light blue for Friday */
+        }
+
+        #sunday-column {
+            background-color: #ede9fe;
+            /* Light purple for Sunday */
+        }
+
+        .column h2 {
+            color: #2d3748;
+            /* Medium dark gray text */
+            font-size: 1.5rem;
+            /* Smaller font size for mobile */
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            /* Reduced margin */
+            display: flex;
+            flex-direction: column;
+            /* Stack title and date input */
+            align-items: center;
+            gap: 0.75rem;
+            /* Increased gap for better touch targets */
+            text-align: center;
+            line-height: 1.3;
+            /* Better line height for readability */
+        }
+
+        /* Responsive h2 sizing */
+        @media (max-width: 480px) {
+            .column h2 {
+                font-size: 1.25rem;
+                margin-bottom: 1rem;
+                gap: 0.5rem;
+            }
+        }
+
+        .column h2 .date-time-inputs {
+            display: flex;
+            flex-direction: column;
+            /* Stack date and time vertically on mobile */
+            gap: 0.5rem;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        /* Desktop layout for date-time inputs */
+        @media (min-width: 480px) {
+            .column h2 .date-time-inputs {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        .column input[type="date"],
+        .column input[type="time"] {
+            padding: 0.75rem;
+            /* Larger padding for better touch targets */
+            border: 1px solid #cbd5e0;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            color: #4a5568;
+            cursor: pointer;
+            width: 100%;
+            /* Full width on mobile */
+            min-height: 44px;
+            /* Minimum touch target size */
+            box-sizing: border-box;
+        }
+
+        /* Desktop sizing for inputs */
+        @media (min-width: 480px) {
+
+            .column input[type="date"],
+            .column input[type="time"] {
+                width: auto;
+                min-width: 120px;
+            }
+        }
+
+        /* General drop zone style (for Friday and Sunday columns) */
+        .drop-zone {
+            min-height: 180px;
+            border: 2px dashed #a0aec0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            /* Fondo blanco */
+            position: relative;
+        }
+
+        /* Placeholder text for empty drop zones */
+        .drop-zone:empty::before {
+            content: "Arrastra y suelta aquí";
+            color: #9ca3af;
+            font-style: italic;
+            font-size: 1rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            text-align: center;
+        }
+
+        .drop-zone:not(:empty)::before {
+            display: none;
+        }
+
+        /* Enhanced mobile drop zone */
+        @media (max-width: 480px) {
+            .drop-zone {
+                min-height: 160px;
+                padding: 0.75rem;
+            }
+        }
+
+        .drop-zone.drag-over {
+            border-color: #3b82f6;
+            /* Blue border when dragging over */
+            background-color: #eff6ff;
+            /* Lighter blue background when dragging over */
+        }
+
+        .draggable-item {
+            background-color: #2563eb;
+            color: #ffffff;
+            padding: 0.5rem 0.75rem;
+            /* Reducido de 0.875rem 1rem */
+            border-radius: 9999px;
+            cursor: grab;
+            font-weight: 500;
+            font-size: 0.875rem;
+            /* Reducido de 1rem */
+            transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: fit-content;
+            white-space: nowrap;
+            text-align: center;
+            box-sizing: border-box;
+            min-height: 36px;
+            /* Reducido de 44px */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        /* Enhanced mobile touch targets */
+        @media (max-width: 768px) {
+            .draggable-item {
+                padding: 0.75rem 1rem;
+                /* Reducido de 1rem 1.25rem */
+                font-size: 1rem;
+                /* Reducido de 1.1rem */
+                min-height: 40px;
+                /* Reducido de 48px */
+            }
+        }
+
+        /* Style for draggable items when they are in Friday column (yellow) */
+        #friday-column .draggable-item {
+            background-color: #f59e0b;
+            /* Vibrant yellow/orange */
+            color: #1a202c;
+            /* Dark text for contrast */
+            border: none;
+            /* No border */
+        }
+
+        /* Style for draggable items when they are in Sunday column (green) */
+        #sunday-column .draggable-item {
+            background-color: #22c55e;
+            /* Vibrant green */
+            color: #ffffff;
+            /* White text for contrast */
+            border: none;
+            /* No border */
+        }
+
+        .draggable-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Enhanced touch feedback */
+        .draggable-item:active {
+            transform: scale(0.98);
+        }
+
+        .draggable-item.dragging {
+            opacity: 0.6;
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Message box for user feedback (e.g., duplicate name) */
+        #message-box {
+            position: fixed;
+            top: 1rem;
+            /* Closer to top on mobile */
+            left: 1rem;
+            right: 1rem;
+            transform: none;
+            /* Remove transform for better mobile positioning */
+            background-color: #4CAF50;
+            /* Green for success/info */
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            /* Hidden by default */
+            font-size: 1rem;
+            /* Smaller font for mobile */
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        /* Desktop message box positioning */
+        @media (min-width: 768px) {
+            #message-box {
+                top: 2rem;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                font-size: 1.1rem;
+            }
+        }
+
+        #message-box.error {
+            background-color: #ef4444;
+            /* Red for errors */
+        }
+
+        #message-box.show {
+            opacity: 1;
+        }
+
+        .print-all-button {
+            background-color: #3b82f6;
+            /* Blue button for all columns (kept for common action color) */
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            /* Slightly smaller font */
+            margin-top: 1.5rem;
+            /* Reduced margin */
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border: none;
+            min-height: 48px;
+            /* Minimum touch target size */
+            width: 100%;
+            /* Full width on mobile */
+            max-width: 300px;
+            /* Limit max width */
+        }
+
+        /* Desktop button sizing */
+        @media (min-width: 768px) {
+            .print-all-button {
+                width: auto;
+                font-size: 1.2rem;
+                margin-top: 2rem;
+            }
+        }
+
+        .print-all-button:hover {
+            background-color: #2563eb;
+            /* Darker blue on hover */
+            transform: translateY(-2px);
+        }
+
+        .print-all-button:active {
+            transform: translateY(0);
+        }
+
+        /* Enhanced accessibility and touch improvements */
+        @media (hover: none) and (pointer: coarse) {
+
+            /* Touch device specific styles */
+            .draggable-item:hover {
+                transform: none;
+                /* Remove hover effects on touch devices */
+            }
+
+            .print-all-button:hover {
+                transform: none;
+            }
+        }
+
+        /* Improved focus states for accessibility */
+        .draggable-item:focus,
+        .column input:focus,
+        .print-all-button:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+
+        /* Loading state for PDF generation */
+        .print-all-button.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .print-all-button.loading::after {
+            content: " Generando...";
+        }
+
+        .available-collaborators {
+            margin-bottom: 1.5rem;
+            width: 100%;
+        }
+
+        .available-collaborators h3 {
+            font-size: 1rem;
+            color: #4a5568;
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .collaborators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .collaborators-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .observations-section {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            width: 100%;
+            max-width: 800px;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .observations-section.show {
+            display: block;
+        }
+
+        .observations-section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .observation-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            /* Aumentado de 0.75rem */
+            padding: 1rem;
+            /* Aumentado de 0.75rem */
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            min-height: 60px;
+            /* Altura mínima para el contenedor */
+        }
+
+        .observation-name {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.75rem 1rem;
+            /* Aumentado el padding */
+            border-radius: 9999px;
+            font-size: 1rem;
+            /* Aumentado de 0.875rem */
+            font-weight: 500;
+            min-width: 120px;
+            /* Aumentado de 100px */
+            text-align: center;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            /* Altura mínima consistente */
+        }
+
+        .observation-input {
+            flex: 1;
+            padding: 0.75rem;
+            /* Aumentado de 0.5rem */
+            border: 1px solid #cbd5e0;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            /* Aumentado de 0.875rem */
+            background-color: white;
+            min-height: 48px;
+            /* Altura mínima para mejor legibilidad */
+            line-height: 1.5;
+            /* Mejor espaciado de línea */
+            box-sizing: border-box;
+        }
+
+        .observation-input:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+            border-color: #3b82f6;
+        }
+
+        @media (max-width: 480px) {
+            .observation-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+            }
+
+            .observation-name {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo-header">
+            <!-- Placeholder for logo_letras_comunidad_somos.PNG -->
+            <!-- In a real project, this would be: <img src="img/logo_letras_comunidad_somos.PNG" alt="Logo Somos Comunidad Cristiana"> -->
+            <img src="img/logo_letras_comunidad_somos.PNG" alt="Logo Somos Comunidad Cristiana">
+        </div>
+        <h1>
+            <!-- SVG Icon -->
+            <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000">
+                <path
+                    d="m601.2,999.81c.52-220.92,179.26-400.1,401.88-398.51,219.32,1.57,397.38,179.91,395.62,402.13-1.74,219.17-180.11,397.24-402.51,395.25-218.5-1.96-394.57-179-394.99-398.88Zm398.91-368.6c-203.38.59-367.22,163.47-368.75,365.83-1.55,205.27,162.93,370.17,365.81,371.62,205.34,1.47,370.56-163.27,371.44-366.43.89-205.4-164.35-371.01-368.5-371.01Z"
+                    fill="#020200" stroke-width="0" />
+                <path
+                    d="m999.81,1243.49c-129.16,0-239.4-90.91-264.5-218.19-3.06-15.54-4.43-31.29-4.85-47.13-.08-3.1.57-4.38,4.06-4.26,8.49.28,17.01.36,25.49-.02,4.3-.2,4.89,1.54,4.92,5.19.26,31.55,6.73,61.89,20.12,90.4,35.91,76.45,95.51,123.55,178.91,136.86,76.22,12.17,143.54-9.82,199.36-63.36,46.46-44.57,70.22-99.78,71.75-164.3.09-3.65,1-4.9,4.8-4.76,8.15.3,16.34.33,24.49,0,4.12-.17,5.35.89,5.23,5.15-1.03,38.08-8.69,74.71-25.4,108.99-39.61,81.28-103.92,131.44-192.27,150.56-17.12,3.7-34.56,5.1-52.11,4.89Z"
+                    fill="#020200" stroke-width="0" />
+            </svg>
+            Producción
+        </h1>
+        <div class="main-columns-layout">
+            <!-- Grupo de Columnas de Mesas (Viernes y Domingo) -->
+            <div class="tables-column-group">
+                <!-- Columna Viernes -->
+                <div class="column" id="friday-column">
+                    <h2>
+                        Viernes
+                        <div class="date-time-inputs">
+                            <input type="date" id="friday-date">
+                            <input type="time" id="friday-time">
+                        </div>
+                    </h2>
+                    <div class="available-collaborators">
+                        <h3>Colaboradores disponibles:</h3>
+                        <div class="collaborators-grid">
+                            <div class="draggable-item" data-name="Lato" draggable="true">Lato</div>
+                            <div class="draggable-item" data-name="Herlan" draggable="true">Herlan</div>
+                            <div class="draggable-item" data-name="Santi-Jair" draggable="true">Santi (Jair)</div>
+                            <div class="draggable-item" data-name="Abigail" draggable="true">Abigaíl</div>
+                            <div class="draggable-item" data-name="Yoesmith" draggable="true">Yoesmith</div>
+                            <div class="draggable-item" data-name="Andrea" draggable="true">Andrea</div>
+                            <div class="draggable-item" data-name="Israel" draggable="true">Israel</div>
+                            <div class="draggable-item" data-name="Josue" draggable="true">Josué</div>
+                            <div class="draggable-item" data-name="Johan" draggable="true">Johan</div>
+                        </div>
+                    </div>
+                    <div class="drop-zone"></div>
+                </div>
+
+                <!-- Columna Domingo -->
+                <div class="column" id="sunday-column">
+                    <h2>
+                        Domingo
+                        <div class="date-time-inputs">
+                            <input type="date" id="sunday-date">
+                            <input type="time" id="sunday-time">
+                        </div>
+                    </h2>
+                    <div class="available-collaborators">
+                        <h3>Colaboradores disponibles:</h3>
+                        <div class="collaborators-grid">
+                            <div class="draggable-item" data-name="Lato" draggable="true">Lato</div>
+                            <div class="draggable-item" data-name="Herlan" draggable="true">Herlan</div>
+                            <div class="draggable-item" data-name="Santi-Jair" draggable="true">Santi (Jair)</div>
+                            <div class="draggable-item" data-name="Abigail" draggable="true">Abigaíl</div>
+                            <div class="draggable-item" data-name="Yoesmith" draggable="true">Yoesmith</div>
+                            <div class="draggable-item" data-name="Andrea" draggable="true">Andrea</div>
+                            <div class="draggable-item" data-name="Israel" draggable="true">Israel</div>
+                            <div class="draggable-item" data-name="Josue" draggable="true">Josué</div>
+                            <div class="draggable-item" data-name="Johan" draggable="true">Johan</div>
+                        </div>
+                    </div>
+                    <div class="drop-zone"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Observations Section -->
+        <div class="observations-section" id="observations-section">
+            <h3>Observaciones</h3>
+            <div id="observations-container"></div>
+        </div>
+
+        <button class="print-all-button" onclick="printAllColumnsToPdf()">Generar (PDF)</button>
+    </div>
+
+    <!-- Message Box for user feedback -->
+    <div id="message-box"></div>
+
+    <script>
+        // Global variable to hold the currently dragged element
+        let draggedItem = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get references to the main columns and drop zones
+            const fridayColumn = document.getElementById('friday-column');
+            const sundayColumn = document.getElementById('sunday-column');
+            const dropZones = document.querySelectorAll('.drop-zone'); // Select all elements with class 'drop-zone'
+            const fridayDateInput = document.getElementById('friday-date');
+            const fridayTimeInput = document.getElementById('friday-time');
+            const sundayDateInput = document.getElementById('sunday-date');
+            const sundayTimeInput = document.getElementById('sunday-time');
+            const messageBox = document.getElementById('message-box');
+
+            /**
+             * Formats a Date object into a readable date string in "día de mes de año" format.
+             * @param {Date} dateObj - The Date object to format.
+             * @returns {string} Formatted date string (e.g., "13 de julio de 2025").
+             */
+            function formatDate(dateObj) {
+                const day = dateObj.getDate();
+                const months = [
+                    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+                    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+                ];
+                const month = months[dateObj.getMonth()];
+                const year = dateObj.getFullYear();
+                return `${day} de ${month} de ${year}`;
+            }
+
+            /**
+             * Updates the header text of a column with the selected date and time.
+             * @param {HTMLElement} columnElement - The column's DOM element (e.g., fridayColumn, sundayColumn).
+             * @param {string} baseTitle - The base title for the column (e.g., "Mesas Viernes", "Reunión Domingo").
+             * @param {Date} dateObj - The Date object to format and display.
+             * @param {string} timeStr - The time string (e.g., "14:30").
+             */
+            function updateColumnHeader(columnElement, baseTitle, dateObj, timeStr) {
+                if (!dateObj) return; // Exit if no valid date object
+                const formattedDate = formatDate(dateObj);
+                const timeDisplay = timeStr ? ` ${timeStr}h` : ''; // Add 'h' for hours
+
+                // Find the h2 and the date/time input container within the column element
+                const h2Element = columnElement.querySelector('h2');
+                const dateTimeInputsContainer = columnElement.querySelector('.date-time-inputs');
+
+                // Update the inner HTML of the h2 element, preserving the input fields
+                h2Element.innerHTML = `${baseTitle}, ${formattedDate}${timeDisplay}`;
+                h2Element.appendChild(dateTimeInputsContainer); // Re-append the input container to keep it in place
+            }
+
+            /**
+             * Calculates the date of the next upcoming specific day of the week.
+             * @param {number} dayOfWeek - The target day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday).
+             * @returns {Date} The Date object for the next upcoming specified day.
+             */
+            function getNextDayOfWeek(dayOfWeek) {
+                const today = new Date();
+                const currentDay = today.getDay();
+                let diff = dayOfWeek - currentDay;
+                if (diff <= 0) { // If the target day has already passed this week or is today
+                    diff += 7; // Add 7 days to get to next week's target day
+                }
+                const nextDate = new Date(today);
+                nextDate.setDate(today.getDate() + diff);
+                return nextDate;
+            }
+
+            // Set initial date and time for 'Viernes' column
+            const nextFriday = getNextDayOfWeek(5); // 5 for Friday
+            fridayDateInput.valueAsDate = nextFriday;
+            fridayTimeInput.value = '18:00'; // Default time for Friday
+            updateColumnHeader(fridayColumn, 'Mesas Viernes', nextFriday, fridayTimeInput.value);
+
+            // Set initial date and time for 'Domingo' column
+            const nextSunday = getNextDayOfWeek(0); // 0 for Sunday
+            sundayDateInput.valueAsDate = nextSunday;
+            sundayTimeInput.value = '11:00'; // Default time for Sunday (changed from 13:00)
+            updateColumnHeader(sundayColumn, 'Reunión Domingo', nextSunday, sundayTimeInput.value); // Changed baseTitle
+
+            // Add event listeners for when the date/time inputs change
+            fridayDateInput.addEventListener('change', (event) => {
+                updateColumnHeader(fridayColumn, 'Mesas Viernes', event.target.valueAsDate, fridayTimeInput.value);
+            });
+            fridayTimeInput.addEventListener('change', (event) => {
+                updateColumnHeader(fridayColumn, 'Mesas Viernes', fridayDateInput.valueAsDate, event.target.value);
+            });
+
+            sundayDateInput.addEventListener('change', (event) => {
+                updateColumnHeader(sundayColumn, 'Reunión Domingo', event.target.valueAsDate, sundayTimeInput.value); // Changed baseTitle
+            });
+            sundayTimeInput.addEventListener('change', (event) => {
+                updateColumnHeader(sundayColumn, 'Reunión Domingo', sundayDateInput.valueAsDate, event.target.value); // Changed baseTitle
+            });
+
+            /**
+             * Displays a temporary message to the user.
+             * @param {string} message - The message text to display.
+             * @param {string} type - The type of message ('info' or 'error') for styling.
+             */
+            function showTemporaryMessage(message, type = 'info') {
+                messageBox.textContent = message;
+                messageBox.className = `show ${type}`; // Add 'show' class to trigger transition
+                messageBox.style.display = 'block';
+                setTimeout(() => {
+                    messageBox.classList.remove('show'); // Hide after 3 seconds by removing 'show'
+                    setTimeout(() => {
+                        messageBox.style.display = 'none';
+                    }, 300); // Wait for transition to complete
+                }, 3000);
+            }
+
+            // Track assigned collaborators for observations
+            let assignedCollaborators = new Set();
+
+            /**
+             * Updates the observations section when collaborators are added or removed
+             */
+            function updateObservationsSection() {
+                const observationsSection = document.getElementById('observations-section');
+                const observationsContainer = document.getElementById('observations-container');
+
+                if (assignedCollaborators.size === 0) {
+                    observationsSection.classList.remove('show');
+                    return;
+                }
+
+                observationsSection.classList.add('show');
+                observationsContainer.innerHTML = '';
+
+                assignedCollaborators.forEach(name => {
+                    const observationItem = document.createElement('div');
+                    observationItem.className = 'observation-item';
+                    observationItem.innerHTML = `
+                        <div class="observation-name">${name}</div>
+                        <textarea class="observation-input" placeholder="Agregar observación para ${name}..." data-name="${name}">
+                        </textarea>
+                    `;
+                    observationsContainer.appendChild(observationItem);
+                });
+            }
+
+            /**
+             * Gets all assigned collaborators from drop zones
+             */
+            function updateAssignedCollaborators() {
+                assignedCollaborators.clear();
+
+                // Get collaborators from both drop zones
+                const dropZones = document.querySelectorAll('.drop-zone');
+                dropZones.forEach(zone => {
+                    const items = zone.querySelectorAll('.draggable-item');
+                    items.forEach(item => {
+                        assignedCollaborators.add(item.dataset.name);
+                    });
+                });
+
+                updateObservationsSection();
+            }
+
+            // Enhanced touch support for drag and drop
+            let touchStartY = 0;
+            let touchStartX = 0;
+            let isDragging = false;
+
+            // Iterate over all draggable items to add dragstart and dragend listeners
+            document.querySelectorAll('.draggable-item').forEach(item => {
+                // Mouse/desktop drag events
+                item.addEventListener('dragstart', (e) => {
+                    draggedItem = e.target; // Store the element being dragged
+                    console.log('Drag started:', e.target.dataset.name);
+                    e.dataTransfer.setData('text/plain', e.target.dataset.name);
+                    e.dataTransfer.effectAllowed = 'move'; // Visual feedback for allowed drop effect
+                    e.target.classList.add('dragging'); // Add class for styling while dragging
+                });
+
+                item.addEventListener('dragend', (e) => {
+                    e.target.classList.remove('dragging'); // Remove dragging class when drag ends
+                    draggedItem = null; // Reset the dragged item
+                    console.log('Drag ended.');
+                });
+
+                // Touch events for mobile drag and drop
+                item.addEventListener('touchstart', (e) => {
+                    touchStartY = e.touches[0].clientY;
+                    touchStartX = e.touches[0].clientX;
+                    isDragging = false;
+
+                    // Add visual feedback
+                    setTimeout(() => {
+                        if (!isDragging) {
+                            item.classList.add('dragging');
+                        }
+                    }, 100);
+                }, { passive: true });
+
+                item.addEventListener('touchmove', (e) => {
+                    const touchY = e.touches[0].clientY;
+                    const touchX = e.touches[0].clientX;
+                    const deltaY = Math.abs(touchY - touchStartY);
+                    const deltaX = Math.abs(touchX - touchStartX);
+
+                    if (deltaY > 10 || deltaX > 10) {
+                        isDragging = true;
+                        draggedItem = item;
+
+                        // Find element under touch point
+                        const elementBelow = document.elementFromPoint(touchX, touchY);
+                        const dropZone = elementBelow?.closest('.drop-zone');
+
+                        // Remove drag-over class from all drop zones
+                        document.querySelectorAll('.drop-zone').forEach(zone => {
+                            zone.classList.remove('drag-over');
+                        });
+
+                        // Add drag-over class to current drop zone
+                        if (dropZone) {
+                            dropZone.classList.add('drag-over');
+                        }
+                    }
+                }, { passive: true });
+
+                item.addEventListener('touchend', (e) => {
+                    if (isDragging && draggedItem) {
+                        const touchX = e.changedTouches[0].clientX;
+                        const touchY = e.changedTouches[0].clientY;
+                        const elementBelow = document.elementFromPoint(touchX, touchY);
+                        const dropZone = elementBelow?.closest('.drop-zone');
+
+                        if (dropZone) {
+                            // Simulate drop event
+                            handleDrop(dropZone, draggedItem);
+                        }
+                    }
+
+                    // Clean up
+                    item.classList.remove('dragging');
+                    document.querySelectorAll('.drop-zone').forEach(zone => {
+                        zone.classList.remove('drag-over');
+                    });
+                    draggedItem = null;
+                    isDragging = false;
+                }, { passive: true });
+            });
+
+            /**
+             * Handles the drop logic for both mouse and touch events
+             */
+            function handleDrop(zone, droppedItem) {
+                if (!droppedItem) return;
+
+                const droppedName = droppedItem.dataset.name;
+                const targetColumnId = zone.closest('.column').id;
+                const sourceDropZone = droppedItem.parentNode;
+
+                console.log('Drop occurred in:', targetColumnId, 'Dropped item:', droppedName);
+
+                // Check for duplicates only in 'Viernes' and 'Domingo' columns
+                if (targetColumnId === 'friday-column' || targetColumnId === 'sunday-column') {
+                    const existingNamesInTarget = Array.from(zone.querySelectorAll('.draggable-item')).map(item => item.dataset.name);
+
+                    if (existingNamesInTarget.includes(droppedName)) {
+                        showTemporaryMessage(`El nombre "${droppedName}" ya está en esta mesa.`, 'error');
+                        console.log('Duplicate name detected, drop prevented.');
+                        return;
+                    }
+                }
+
+                // Logic for moving or cloning items
+                if (sourceDropZone) {
+                    sourceDropZone.removeChild(droppedItem);
+                    console.log('Original item removed from source:', sourceDropZone.closest('.column').id);
+                }
+                zone.appendChild(droppedItem);
+                console.log('Original item moved to:', targetColumnId);
+
+                // Update observations section
+                updateAssignedCollaborators();
+            }
+
+            // Iterate over all drop zones to add dragover, dragleave, and drop listeners
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault(); // Prevent default to allow dropping
+                    e.dataTransfer.dropEffect = 'move'; // Visual feedback for allowed drop effect
+                    zone.classList.add('drag-over'); // Add class for styling when item is dragged over
+                    console.log('Drag over:', zone.closest('.column').id);
+                });
+
+                zone.addEventListener('dragleave', (e) => {
+                    zone.classList.remove('drag-over'); // Remove class when item leaves the drop zone
+                    console.log('Drag leave:', zone.closest('.column').id);
+                });
+
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault(); // Prevent default browser drop behavior
+                    zone.classList.remove('drag-over'); // Remove drag-over styling
+                    handleDrop(zone, draggedItem);
+                });
+            });
+        });
+
+        /**
+         * Generates a PDF containing both 'Viernes' and 'Domingo' columns using html2canvas and jsPDF.
+         */
+        async function printAllColumnsToPdf() {
+            const button = document.querySelector('.print-all-button');
+            const fridayColumn = document.getElementById('friday-column');
+            const sundayColumn = document.getElementById('sunday-column');
+
+            if (!fridayColumn || !sundayColumn) {
+                console.error("One or both columns (Viernes, Domingo) not found for PDF generation.");
+                return;
+            }
+
+            // Add loading state
+            button.classList.add('loading');
+            button.textContent = 'Generando PDF...';
+
+            // Get references to date/time input containers and available collaborators
+            const fridayDateTimeInputs = fridayColumn.querySelector('.date-time-inputs');
+            const sundayDateTimeInputs = sundayColumn.querySelector('.date-time-inputs');
+            const fridayAvailableCollaborators = fridayColumn.querySelector('.available-collaborators');
+            const sundayAvailableCollaborators = sundayColumn.querySelector('.available-collaborators');
+
+            // Temporarily hide the date/time inputs and available collaborators before capturing the columns
+            if (fridayDateTimeInputs) fridayDateTimeInputs.style.display = 'none';
+            if (sundayDateTimeInputs) sundayDateTimeInputs.style.display = 'none';
+            if (fridayAvailableCollaborators) fridayAvailableCollaborators.style.display = 'none';
+            if (sundayAvailableCollaborators) sundayAvailableCollaborators.style.display = 'none';
+
+            try {
+                // Capture Friday column as a canvas (image)
+                const canvasFriday = await html2canvas(fridayColumn, { scale: 2, logging: false, useCORS: true });
+                // Capture Sunday column as a canvas (image)
+                const canvasSunday = await html2canvas(sundayColumn, { scale: 2, logging: false, useCORS: true });
+
+                // Capture observations section if visible
+                let canvasObservations = null;
+                const observationsSection = document.getElementById('observations-section');
+                if (observationsSection && observationsSection.classList.contains('show')) {
+                    canvasObservations = await html2canvas(observationsSection, { scale: 2, logging: false, useCORS: true });
+                }
+
+                // Restore the visibility of the date/time inputs and available collaborators after capturing
+                if (fridayDateTimeInputs) fridayDateTimeInputs.style.display = 'flex';
+                if (sundayDateTimeInputs) sundayDateTimeInputs.style.display = 'flex';
+                if (fridayAvailableCollaborators) fridayAvailableCollaborators.style.display = 'block';
+                if (sundayAvailableCollaborators) sundayAvailableCollaborators.style.display = 'block';
+
+                // Initialize jsPDF
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = doc.internal.pageSize.getHeight();
+                const margin = 15; // Increased margin for better spacing
+
+                // Calculate image dimensions to fit within PDF with margins, maintaining aspect ratio
+                const availableWidth = pdfWidth - (margin * 2);
+                const columnGap = 15; // Increased gap between columns
+
+                // Check if we can fit them side-by-side
+                const twoColumnWidth = (availableWidth - columnGap) / 2;
+                const singleColumnWidth = availableWidth;
+
+                // Calculate dimensions for both layouts
+                let imgWidthFriday = twoColumnWidth;
+                let imgHeightFriday = canvasFriday.height * imgWidthFriday / canvasFriday.width;
+
+                let imgWidthSunday = twoColumnWidth;
+                let imgHeightSunday = canvasSunday.height * imgWidthSunday / canvasSunday.width;
+
+                let currentY = margin;
+                const titleSpacing = 15; // Space for titles
+                const sectionSpacing = 10; // Space between sections
+
+                // Add a main title for the PDF
+                doc.setFontSize(20); // Slightly smaller to fit better
+                doc.setFont(undefined, 'bold');
+                doc.text("Producción - Mesas Viernes y Reunión Domingo", pdfWidth / 2, currentY, { align: 'center' });
+                currentY += titleSpacing + 5; // Extra space after main title
+
+                // Get titles
+                const fridayTitle = "";//fridayColumn.querySelector('h2').textContent;
+                const sundayTitle = "";//sundayColumn.querySelector('h2').textContent;
+
+                // Check if both columns can fit side by side with proper spacing
+                const totalHeightNeeded = Math.max(imgHeightFriday, imgHeightSunday) + titleSpacing + sectionSpacing;
+                const canFitSideBySide = (currentY + totalHeightNeeded) < (pdfHeight - margin);
+
+                if (canFitSideBySide && imgWidthFriday <= twoColumnWidth && imgWidthSunday <= twoColumnWidth) {
+                    // Side by side layout
+
+                    // Add Friday Column
+                    doc.setFontSize(14);
+                    doc.setFont(undefined, 'bold');
+                    doc.text(fridayTitle, margin, currentY);
+                    currentY += sectionSpacing;
+
+                    // Add Friday column image
+                    doc.addImage(canvasFriday.toDataURL('image/png'), 'PNG', margin, currentY, imgWidthFriday, imgHeightFriday);
+
+                    // Add Sunday Column (next to Friday)
+                    let sundayX = margin + imgWidthFriday + columnGap;
+                    let sundayY = currentY - sectionSpacing; // Align with Friday title
+
+                    doc.setFontSize(14);
+                    doc.setFont(undefined, 'bold');
+                    doc.text(sundayTitle, sundayX, sundayY);
+                    sundayY += sectionSpacing;
+
+                    // Add Sunday column image
+                    doc.addImage(canvasSunday.toDataURL('image/png'), 'PNG', sundayX, sundayY, imgWidthSunday, imgHeightSunday);
+
+                    // Update currentY for observations
+                    currentY += Math.max(imgHeightFriday, imgHeightSunday);
+
+                } else {
+                    // Stacked layout (one below the other)
+
+                    // Recalculate dimensions for single column width if needed
+                    if (imgWidthFriday > singleColumnWidth) {
+                        imgWidthFriday = singleColumnWidth;
+                        imgHeightFriday = canvasFriday.height * imgWidthFriday / canvasFriday.width;
+                    }
+                    if (imgWidthSunday > singleColumnWidth) {
+                        imgWidthSunday = singleColumnWidth;
+                        imgHeightSunday = canvasSunday.height * imgWidthSunday / canvasSunday.width;
+                    }
+
+                    // Add Friday Column
+                    doc.setFontSize(14);
+                    doc.setFont(undefined, 'bold');
+                    doc.text(fridayTitle, margin, currentY);
+                    currentY += sectionSpacing;
+
+                    // Add Friday column image
+                    doc.addImage(canvasFriday.toDataURL('image/png'), 'PNG', margin, currentY, imgWidthFriday, imgHeightFriday);
+                    currentY += imgHeightFriday + titleSpacing;
+
+                    // Check if Sunday column fits on the same page
+                    if (currentY + imgHeightSunday + sectionSpacing > pdfHeight - margin) {
+                        doc.addPage();
+                        currentY = margin;
+                    }
+
+                    // Add Sunday Column
+                    doc.setFontSize(14);
+                    doc.setFont(undefined, 'bold');
+                    doc.text(sundayTitle, margin, currentY);
+                    currentY += sectionSpacing;
+
+                    // Add Sunday column image
+                    doc.addImage(canvasSunday.toDataURL('image/png'), 'PNG', margin, currentY, imgWidthSunday, imgHeightSunday);
+                    currentY += imgHeightSunday;
+                }
+
+                // Add observations section if it exists
+                if (canvasObservations) {
+                    // Calculate space needed for observations
+                    let obsWidth = singleColumnWidth;
+                    let obsHeight = canvasObservations.height * obsWidth / canvasObservations.width;
+
+                    // Add some spacing before observations
+                    currentY += titleSpacing;
+
+                    // Check if observations fit on current page
+                    if (currentY + obsHeight + titleSpacing > pdfHeight - margin) {
+                        doc.addPage();
+                        currentY = margin;
+                    }
+
+                    // Add observations title
+                    doc.setFontSize(16);
+                    doc.setFont(undefined, 'bold');
+                    doc.text("Observaciones", margin, currentY);
+                    currentY += sectionSpacing;
+
+                    // Add observations image
+                    doc.addImage(canvasObservations.toDataURL('image/png'), 'PNG', margin, currentY, obsWidth, obsHeight);
+                }
+
+                // Generate filename with current date
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, '0');
+                const day = String(today.getDate()).padStart(2, '0');
+                const dateString = `${year}-${month}-${day}`;
+                const filename = `Produccion_Viernes_y_Domingo_${dateString}.pdf`;
+
+                doc.save(filename);
+
+                // Show success message
+                const messageBox = document.getElementById('message-box');
+                messageBox.textContent = 'PDF generado exitosamente';
+                messageBox.className = 'show info';
+                messageBox.style.display = 'block';
+                setTimeout(() => {
+                    messageBox.classList.remove('show');
+                    setTimeout(() => {
+                        messageBox.style.display = 'none';
+                    }, 300);
+                }, 2000);
+
+            } catch (error) {
+                console.error("Error generating PDF:", error);
+                // Ensure inputs and collaborators are restored even if an error occurs
+                if (fridayDateTimeInputs) fridayDateTimeInputs.style.display = 'flex';
+                if (sundayDateTimeInputs) sundayDateTimeInputs.style.display = 'flex';
+                if (fridayAvailableCollaborators) fridayAvailableCollaborators.style.display = 'block';
+                if (sundayAvailableCollaborators) sundayAvailableCollaborators.style.display = 'block';
+
+                const messageBox = document.getElementById('message-box');
+                messageBox.textContent = 'Error al generar el PDF. Inténtalo de nuevo.';
+                messageBox.className = 'show error';
+                messageBox.style.display = 'block';
+                setTimeout(() => {
+                    messageBox.classList.remove('show');
+                    setTimeout(() => {
+                        messageBox.style.display = 'none';
+                    }, 300);
+                }, 3000);
+            } finally {
+                // Remove loading state
+                button.classList.remove('loading');
+                button.textContent = 'Imprimir Mesas (PDF)';
+            }
+        }
+    </script>
+</body>
+
+</html>
