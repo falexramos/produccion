@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Somos Producción - Calendar</title>
+    <title>Producción - Drag and Drop</title>
     <!-- Tailwind CSS CDN for modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- html2canvas CDN for capturing HTML elements as images -->
@@ -15,26 +14,20 @@
         /* Custom styles for the application */
         body {
             font-family: "Inter", sans-serif;
-            background-color: #fffbeb;
-            /* Light yellow background, similar to brand */
+            background-color: #fffbeb; /* Light yellow background, similar to brand */
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            /* Align to top for better content display */
+            align-items: flex-start; /* Align to top for better content display */
             min-height: 100vh;
-            padding: 1rem;
-            /* Reduced padding for mobile */
+            padding: 1rem; /* Reduced padding for mobile */
             box-sizing: border-box;
         }
 
         .container {
             background-color: #ffffff;
-            border-radius: 1rem;
-            /* Rounded corners */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            /* Soft shadow */
-            padding: 1.5rem;
-            /* Reduced default padding */
+            border-radius: 1rem; /* Rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Soft shadow */
+            padding: 1.5rem; /* Reduced default padding */
             max-width: 1200px;
             width: 100%;
             text-align: center;
@@ -43,80 +36,58 @@
         /* Enhanced responsive padding */
         @media (max-width: 768px) {
             body {
-                padding: 0.5rem;
-                /* Even smaller body padding on mobile */
+                padding: 0.5rem; /* Even smaller body padding on mobile */
             }
-
             .container {
-                padding: 1rem;
-                /* Smaller padding on tablets/móviles */
-                border-radius: 0.75rem;
-                /* Slightly smaller border radius */
+                padding: 1rem; /* Smaller padding on tablets/móviles */
+                border-radius: 0.75rem; /* Slightly smaller border radius */
             }
         }
 
-        @media (max-width: 480px) {
-
-            /* Even smaller mobile screens */
+        @media (max-width: 480px) { /* Even smaller mobile screens */
             body {
-                padding: 0.25rem;
-                /* Minimal body padding */
+                padding: 0.25rem; /* Minimal body padding */
             }
-
             .container {
-                padding: 0.75rem;
-                /* Smallest padding on very small móviles */
-                border-radius: 0.5rem;
-                /* Smaller border radius */
+                padding: 0.75rem; /* Smallest padding on very small móviles */
+                border-radius: 0.5rem; /* Smaller border radius */
             }
         }
 
         .logo-header {
-            margin-bottom: 1rem;
-            /* Reduced margin for mobile */
+            margin-bottom: 1rem; /* Reduced margin for mobile */
         }
 
         .logo-header img {
-            max-width: 200px;
-            /* Smaller logo on mobile */
+            max-width: 200px; /* Smaller logo on mobile */
             height: auto;
-            margin: 0 auto;
-            /* Center the logo */
-            border-radius: 0.5rem;
-            /* Slightly rounded corners for the logo image */
+            margin: 0 auto; /* Center the logo */
+            border-radius: 0.5rem; /* Slightly rounded corners for the logo image */
         }
 
         /* Mobile-first responsive logo sizing */
         @media (max-width: 768px) {
             .logo-header img {
-                max-width: 160px;
-                /* Even smaller on tablets */
+                max-width: 160px; /* Even smaller on tablets */
             }
         }
 
         @media (max-width: 480px) {
             .logo-header img {
-                max-width: 140px;
-                /* Smallest on mobile */
+                max-width: 140px; /* Smallest on mobile */
             }
         }
 
         h1 {
-            color: #1a202c;
-            /* Dark gray text for contrast */
-            margin-bottom: 1.5rem;
-            /* Reduced margin */
-            font-size: 2rem;
-            /* Smaller title for mobile */
-            font-weight: 700;
-            /* Bold */
+            color: #1a202c; /* Dark gray text for contrast */
+            margin-bottom: 1.5rem; /* Reduced margin */
+            font-size: 2rem; /* Smaller title for mobile */
+            font-weight: 700; /* Bold */
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
-            /* Smaller gap */
-            flex-wrap: wrap;
-            /* Allow wrapping on very small screens */
+            gap: 0.75rem; /* Smaller gap */
+            flex-wrap: wrap; /* Allow wrapping on very small screens */
         }
 
         /* Responsive title sizing */
@@ -137,13 +108,10 @@
         }
 
         h1 svg {
-            width: 50px;
-            /* Smaller SVG for mobile */
+            width: 50px; /* Smaller SVG for mobile */
             height: 50px;
-            fill: #020200;
-            /* Ensure SVG paths are filled with black for contrast */
-            flex-shrink: 0;
-            /* Prevent SVG from shrinking */
+            fill: #020200; /* Ensure SVG paths are filled with black for contrast */
+            flex-shrink: 0; /* Prevent SVG from shrinking */
         }
 
         /* Responsive SVG sizing */
@@ -191,18 +159,12 @@
         }
 
         .column {
-            background-color: #f8fafc;
-            /* Lighter background for columns */
-            border: 1px solid #e2e8f0;
-            /* Light border */
-            border-radius: 0.75rem;
-            /* Rounded corners */
-            padding: 1.25rem;
-            /* Reduced padding */
-            width: 100%;
-            /* Full width on mobile */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            /* Subtle shadow */
+            background-color: #f8fafc; /* Lighter background for columns */
+            border: 1px solid #e2e8f0; /* Light border */
+            border-radius: 0.75rem; /* Rounded corners */
+            padding: 1.25rem; /* Reduced padding */
+            width: 100%; /* Full width on mobile */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -218,32 +180,24 @@
 
         /* Specific column colors */
         #friday-column {
-            background-color: #e0f2fe;
-            /* Light blue for Friday */
+            background-color: #e0f2fe; /* Light blue for Friday */
         }
 
         #sunday-column {
-            background-color: #ede9fe;
-            /* Light purple for Sunday */
+            background-color: #ede9fe; /* Light purple for Sunday */
         }
 
         .column h2 {
-            color: #2d3748;
-            /* Medium dark gray text */
-            font-size: 1.5rem;
-            /* Smaller font size for mobile */
+            color: #2d3748; /* Medium dark gray text */
+            font-size: 1.5rem; /* Smaller font size for mobile */
             font-weight: 600;
-            margin-bottom: 1.25rem;
-            /* Reduced margin */
+            margin-bottom: 1.25rem; /* Reduced margin */
             display: flex;
-            flex-direction: column;
-            /* Stack title and date input */
+            flex-direction: column; /* Stack title and date input */
             align-items: center;
-            gap: 0.75rem;
-            /* Increased gap for better touch targets */
+            gap: 0.75rem; /* Increased gap for better touch targets */
             text-align: center;
-            line-height: 1.3;
-            /* Better line height for readability */
+            line-height: 1.3; /* Better line height for readability */
         }
 
         /* Responsive h2 sizing */
@@ -257,8 +211,7 @@
 
         .column h2 .date-time-inputs {
             display: flex;
-            flex-direction: column;
-            /* Stack date and time vertically on mobile */
+            flex-direction: column; /* Stack date and time vertically on mobile */
             gap: 0.5rem;
             width: 100%;
             max-width: 200px;
@@ -274,23 +227,19 @@
 
         .column input[type="date"],
         .column input[type="time"] {
-            padding: 0.75rem;
-            /* Larger padding for better touch targets */
+            padding: 0.75rem; /* Larger padding for better touch targets */
             border: 1px solid #cbd5e0;
             border-radius: 0.5rem;
             font-size: 1rem;
             color: #4a5568;
             cursor: pointer;
-            width: 100%;
-            /* Full width on mobile */
-            min-height: 44px;
-            /* Minimum touch target size */
+            width: 100%; /* Full width on mobile */
+            min-height: 44px; /* Minimum touch target size */
             box-sizing: border-box;
         }
 
         /* Desktop sizing for inputs */
         @media (min-width: 480px) {
-
             .column input[type="date"],
             .column input[type="time"] {
                 width: auto;
@@ -311,8 +260,7 @@
             justify-content: flex-start;
             width: 100%;
             box-sizing: border-box;
-            background-color: #ffffff;
-            /* Fondo blanco */
+            background-color: #ffffff; /* Fondo blanco */
             position: relative;
         }
 
@@ -343,30 +291,25 @@
         }
 
         .drop-zone.drag-over {
-            border-color: #3b82f6;
-            /* Blue border when dragging over */
-            background-color: #eff6ff;
-            /* Lighter blue background when dragging over */
+            border-color: #3b82f6; /* Blue border when dragging over */
+            background-color: #eff6ff; /* Lighter blue background when dragging over */
         }
 
         .draggable-item {
             background-color: #2563eb;
             color: #ffffff;
-            padding: 0.5rem 0.75rem;
-            /* Reducido de 0.875rem 1rem */
+            padding: 0.5rem 0.75rem; /* Reducido de 0.875rem 1rem */
             border-radius: 9999px;
             cursor: grab;
             font-weight: 500;
-            font-size: 0.875rem;
-            /* Reducido de 1rem */
+            font-size: 0.875rem; /* Reducido de 1rem */
             transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             width: fit-content;
             white-space: nowrap;
             text-align: center;
             box-sizing: border-box;
-            min-height: 36px;
-            /* Reducido de 44px */
+            min-height: 36px; /* Reducido de 44px */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -378,33 +321,24 @@
         /* Enhanced mobile touch targets */
         @media (max-width: 768px) {
             .draggable-item {
-                padding: 0.75rem 1rem;
-                /* Reducido de 1rem 1.25rem */
-                font-size: 1rem;
-                /* Reducido de 1.1rem */
-                min-height: 40px;
-                /* Reducido de 48px */
+                padding: 0.75rem 1rem; /* Reducido de 1rem 1.25rem */
+                font-size: 1rem; /* Reducido de 1.1rem */
+                min-height: 40px; /* Reducido de 48px */
             }
         }
 
         /* Style for draggable items when they are in Friday column (yellow) */
         #friday-column .draggable-item {
-            background-color: #f59e0b;
-            /* Vibrant yellow/orange */
-            color: #1a202c;
-            /* Dark text for contrast */
-            border: none;
-            /* No border */
+            background-color: #f59e0b; /* Vibrant yellow/orange */
+            color: #1a202c; /* Dark text for contrast */
+            border: none; /* No border */
         }
 
         /* Style for draggable items when they are in Sunday column (green) */
         #sunday-column .draggable-item {
-            background-color: #22c55e;
-            /* Vibrant green */
-            color: #ffffff;
-            /* White text for contrast */
-            border: none;
-            /* No border */
+            background-color: #22c55e; /* Vibrant green */
+            color: #ffffff; /* White text for contrast */
+            border: none; /* No border */
         }
 
         .draggable-item:hover {
@@ -426,23 +360,18 @@
         /* Message box for user feedback (e.g., duplicate name) */
         #message-box {
             position: fixed;
-            top: 1rem;
-            /* Closer to top on mobile */
+            top: 1rem; /* Closer to top on mobile */
             left: 1rem;
             right: 1rem;
-            transform: none;
-            /* Remove transform for better mobile positioning */
-            background-color: #4CAF50;
-            /* Green for success/info */
+            transform: none; /* Remove transform for better mobile positioning */
+            background-color: #4CAF50; /* Green for success/info */
             color: white;
             padding: 1rem 1.5rem;
             border-radius: 0.75rem;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             z-index: 1000;
-            display: none;
-            /* Hidden by default */
-            font-size: 1rem;
-            /* Smaller font for mobile */
+            display: none; /* Hidden by default */
+            font-size: 1rem; /* Smaller font for mobile */
             text-align: center;
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
@@ -460,8 +389,7 @@
         }
 
         #message-box.error {
-            background-color: #ef4444;
-            /* Red for errors */
+            background-color: #ef4444; /* Red for errors */
         }
 
         #message-box.show {
@@ -469,26 +397,20 @@
         }
 
         .print-all-button {
-            background-color: #3b82f6;
-            /* Blue button for all columns (kept for common action color) */
+            background-color: #3b82f6; /* Blue button for all columns (kept for common action color) */
             color: white;
             padding: 1rem 2rem;
             border-radius: 0.75rem;
             cursor: pointer;
             font-weight: 700;
-            font-size: 1.1rem;
-            /* Slightly smaller font */
-            margin-top: 1.5rem;
-            /* Reduced margin */
+            font-size: 1.1rem; /* Slightly smaller font */
+            margin-top: 1.5rem; /* Reduced margin */
             transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             border: none;
-            min-height: 48px;
-            /* Minimum touch target size */
-            width: 100%;
-            /* Full width on mobile */
-            max-width: 300px;
-            /* Limit max width */
+            min-height: 48px; /* Minimum touch target size */
+            width: 100%; /* Full width on mobile */
+            max-width: 300px; /* Limit max width */
         }
 
         /* Desktop button sizing */
@@ -501,8 +423,7 @@
         }
 
         .print-all-button:hover {
-            background-color: #2563eb;
-            /* Darker blue on hover */
+            background-color: #2563eb; /* Darker blue on hover */
             transform: translateY(-2px);
         }
 
@@ -512,13 +433,11 @@
 
         /* Enhanced accessibility and touch improvements */
         @media (hover: none) and (pointer: coarse) {
-
             /* Touch device specific styles */
             .draggable-item:hover {
-                transform: none;
-                /* Remove hover effects on touch devices */
+                transform: none; /* Remove hover effects on touch devices */
             }
-
+            
             .print-all-button:hover {
                 transform: none;
             }
@@ -573,8 +492,7 @@
             margin-bottom: 1rem;
             width: 100%;
             max-width: 800px;
-            display: none;
-            /* Hidden by default */
+            display: none; /* Hidden by default */
         }
 
         .observations-section.show {
@@ -591,56 +509,49 @@
 
         .observation-item {
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Cambiado de center a flex-start */
             gap: 1rem;
             margin-bottom: 1rem;
-            /* Aumentado de 0.75rem */
             padding: 1rem;
-            /* Aumentado de 0.75rem */
             background-color: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 0.5rem;
-            min-height: 60px;
-            /* Altura mínima para el contenedor */
+            min-height: 100px; /* Aumentado para acomodar el textarea */
         }
 
         .observation-name {
             background-color: #3b82f6;
             color: white;
-            padding: 0.75rem 1rem;
-            /* Aumentado el padding */
+            padding: 0.75rem 1rem; /* Aumentado el padding */
             border-radius: 9999px;
-            font-size: 1rem;
-            /* Aumentado de 0.875rem */
+            font-size: 1rem; /* Aumentado de 0.875rem */
             font-weight: 500;
-            min-width: 120px;
-            /* Aumentado de 100px */
+            min-width: 120px; /* Aumentado de 100px */
             text-align: center;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 48px;
-            /* Altura mínima consistente */
+            min-height: 48px; /* Altura mínima consistente */
         }
 
-        .observation-input {
+        .observation-textarea {
             flex: 1;
             padding: 0.75rem;
-            /* Aumentado de 0.5rem */
             border: 1px solid #cbd5e0;
             border-radius: 0.375rem;
             font-size: 1rem;
-            /* Aumentado de 0.875rem */
             background-color: white;
-            min-height: 48px;
-            /* Altura mínima para mejor legibilidad */
+            min-height: 80px;
             line-height: 1.5;
-            /* Mejor espaciado de línea */
             box-sizing: border-box;
+            resize: vertical;
+            font-family: inherit;
+            overflow: hidden; /* Evita scroll bars en la captura */
+            word-wrap: break-word; /* Permite que las palabras largas se rompan */
         }
 
-        .observation-input:focus {
+        .observation-textarea:focus {
             outline: 2px solid #3b82f6;
             outline-offset: 2px;
             border-color: #3b82f6;
@@ -652,14 +563,13 @@
                 align-items: stretch;
                 gap: 0.5rem;
             }
-
+            
             .observation-name {
                 min-width: auto;
             }
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <div class="logo-header">
@@ -670,12 +580,8 @@
         <h1>
             <!-- SVG Icon -->
             <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000">
-                <path
-                    d="m601.2,999.81c.52-220.92,179.26-400.1,401.88-398.51,219.32,1.57,397.38,179.91,395.62,402.13-1.74,219.17-180.11,397.24-402.51,395.25-218.5-1.96-394.57-179-394.99-398.88Zm398.91-368.6c-203.38.59-367.22,163.47-368.75,365.83-1.55,205.27,162.93,370.17,365.81,371.62,205.34,1.47,370.56-163.27,371.44-366.43.89-205.4-164.35-371.01-368.5-371.01Z"
-                    fill="#020200" stroke-width="0" />
-                <path
-                    d="m999.81,1243.49c-129.16,0-239.4-90.91-264.5-218.19-3.06-15.54-4.43-31.29-4.85-47.13-.08-3.1.57-4.38,4.06-4.26,8.49.28,17.01.36,25.49-.02,4.3-.2,4.89,1.54,4.92,5.19.26,31.55,6.73,61.89,20.12,90.4,35.91,76.45,95.51,123.55,178.91,136.86,76.22,12.17,143.54-9.82,199.36-63.36,46.46-44.57,70.22-99.78,71.75-164.3.09-3.65,1-4.9,4.8-4.76,8.15.3,16.34.33,24.49,0,4.12-.17,5.35.89,5.23,5.15-1.03,38.08-8.69,74.71-25.4,108.99-39.61,81.28-103.92,131.44-192.27,150.56-17.12,3.7-34.56,5.1-52.11,4.89Z"
-                    fill="#020200" stroke-width="0" />
+                <path d="m601.2,999.81c.52-220.92,179.26-400.1,401.88-398.51,219.32,1.57,397.38,179.91,395.62,402.13-1.74,219.17-180.11,397.24-402.51,395.25-218.5-1.96-394.57-179-394.99-398.88Zm398.91-368.6c-203.38.59-367.22,163.47-368.75,365.83-1.55,205.27,162.93,370.17,365.81,371.62,205.34,1.47,370.56-163.27,371.44-366.43.89-205.4-164.35-371.01-368.5-371.01Z" fill="#020200" stroke-width="0"/>
+                <path d="m999.81,1243.49c-129.16,0-239.4-90.91-264.5-218.19-3.06-15.54-4.43-31.29-4.85-47.13-.08-3.1.57-4.38,4.06-4.26,8.49.28,17.01.36,25.49-.02,4.3-.2,4.89,1.54,4.92,5.19.26,31.55,6.73,61.89,20.12,90.4,35.91,76.45,95.51,123.55,178.91,136.86,76.22,12.17,143.54-9.82,199.36-63.36,46.46-44.57,70.22-99.78,71.75-164.3.09-3.65,1-4.9,4.8-4.76,8.15.3,16.34.33,24.49,0,4.12-.17,5.35.89,5.23,5.15-1.03,38.08-8.69,74.71-25.4,108.99-39.61,81.28-103.92,131.44-192.27,150.56-17.12,3.7-34.56,5.1-52.11,4.89Z" fill="#020200" stroke-width="0"/>
             </svg>
             Producción
         </h1>
@@ -685,7 +591,7 @@
                 <!-- Columna Viernes -->
                 <div class="column" id="friday-column">
                     <h2>
-                        Viernes
+                        Mesas Viernes
                         <div class="date-time-inputs">
                             <input type="date" id="friday-date">
                             <input type="time" id="friday-time">
@@ -711,7 +617,7 @@
                 <!-- Columna Domingo -->
                 <div class="column" id="sunday-column">
                     <h2>
-                        Domingo
+                        Reunión Domingo
                         <div class="date-time-inputs">
                             <input type="date" id="sunday-date">
                             <input type="time" id="sunday-time">
@@ -741,7 +647,7 @@
             <div id="observations-container"></div>
         </div>
 
-        <button class="print-all-button" onclick="printAllColumnsToPdf()">Generar (PDF)</button>
+        <button class="print-all-button" onclick="printAllColumnsToPdf()">Imprimir Mesas (PDF)</button>
     </div>
 
     <!-- Message Box for user feedback -->
@@ -869,23 +775,22 @@
             function updateObservationsSection() {
                 const observationsSection = document.getElementById('observations-section');
                 const observationsContainer = document.getElementById('observations-container');
-
+                
                 if (assignedCollaborators.size === 0) {
                     observationsSection.classList.remove('show');
                     return;
                 }
-
+                
                 observationsSection.classList.add('show');
                 observationsContainer.innerHTML = '';
-
+                
                 assignedCollaborators.forEach(name => {
                     const observationItem = document.createElement('div');
                     observationItem.className = 'observation-item';
                     observationItem.innerHTML = `
-                        <div class="observation-name">${name}</div>
-                        <textarea class="observation-input" placeholder="Agregar observación para ${name}..." data-name="${name}">
-                        </textarea>
-                    `;
+    <div class="observation-name">${name}</div>
+    <textarea class="observation-textarea" placeholder="Agregar observación para ${name}..." data-name="${name}" rows="3"></textarea>
+`;
                     observationsContainer.appendChild(observationItem);
                 });
             }
@@ -895,7 +800,7 @@
              */
             function updateAssignedCollaborators() {
                 assignedCollaborators.clear();
-
+                
                 // Get collaborators from both drop zones
                 const dropZones = document.querySelectorAll('.drop-zone');
                 dropZones.forEach(zone => {
@@ -904,7 +809,7 @@
                         assignedCollaborators.add(item.dataset.name);
                     });
                 });
-
+                
                 updateObservationsSection();
             }
 
@@ -935,7 +840,7 @@
                     touchStartY = e.touches[0].clientY;
                     touchStartX = e.touches[0].clientX;
                     isDragging = false;
-
+                    
                     // Add visual feedback
                     setTimeout(() => {
                         if (!isDragging) {
@@ -949,20 +854,20 @@
                     const touchX = e.touches[0].clientX;
                     const deltaY = Math.abs(touchY - touchStartY);
                     const deltaX = Math.abs(touchX - touchStartX);
-
+                    
                     if (deltaY > 10 || deltaX > 10) {
                         isDragging = true;
                         draggedItem = item;
-
+                        
                         // Find element under touch point
                         const elementBelow = document.elementFromPoint(touchX, touchY);
                         const dropZone = elementBelow?.closest('.drop-zone');
-
+                        
                         // Remove drag-over class from all drop zones
                         document.querySelectorAll('.drop-zone').forEach(zone => {
                             zone.classList.remove('drag-over');
                         });
-
+                        
                         // Add drag-over class to current drop zone
                         if (dropZone) {
                             dropZone.classList.add('drag-over');
@@ -976,13 +881,13 @@
                         const touchY = e.changedTouches[0].clientY;
                         const elementBelow = document.elementFromPoint(touchX, touchY);
                         const dropZone = elementBelow?.closest('.drop-zone');
-
+                        
                         if (dropZone) {
                             // Simulate drop event
                             handleDrop(dropZone, draggedItem);
                         }
                     }
-
+                    
                     // Clean up
                     item.classList.remove('dragging');
                     document.querySelectorAll('.drop-zone').forEach(zone => {
@@ -1023,7 +928,7 @@
                 }
                 zone.appendChild(droppedItem);
                 console.log('Original item moved to:', targetColumnId);
-
+                
                 // Update observations section
                 updateAssignedCollaborators();
             }
@@ -1054,230 +959,241 @@
          * Generates a PDF containing both 'Viernes' and 'Domingo' columns using html2canvas and jsPDF.
          */
         async function printAllColumnsToPdf() {
-            const button = document.querySelector('.print-all-button');
-            const fridayColumn = document.getElementById('friday-column');
-            const sundayColumn = document.getElementById('sunday-column');
+    const button = document.querySelector('.print-all-button');
+    const fridayColumn = document.getElementById('friday-column');
+    const sundayColumn = document.getElementById('sunday-column');
 
-            if (!fridayColumn || !sundayColumn) {
-                console.error("One or both columns (Viernes, Domingo) not found for PDF generation.");
-                return;
-            }
+    if (!fridayColumn || !sundayColumn) {
+        console.error("One or both columns (Viernes, Domingo) not found for PDF generation.");
+        return;
+    }
 
-            // Add loading state
-            button.classList.add('loading');
-            button.textContent = 'Generando PDF...';
+    // Add loading state
+    button.classList.add('loading');
+    button.textContent = 'Generando PDF...';
 
-            // Get references to date/time input containers and available collaborators
-            const fridayDateTimeInputs = fridayColumn.querySelector('.date-time-inputs');
-            const sundayDateTimeInputs = sundayColumn.querySelector('.date-time-inputs');
-            const fridayAvailableCollaborators = fridayColumn.querySelector('.available-collaborators');
-            const sundayAvailableCollaborators = sundayColumn.querySelector('.available-collaborators');
+    // Get references to date/time input containers and available collaborators
+    const fridayDateTimeInputs = fridayColumn.querySelector('.date-time-inputs');
+    const sundayDateTimeInputs = sundayColumn.querySelector('.date-time-inputs');
+    const fridayAvailableCollaborators = fridayColumn.querySelector('.available-collaborators');
+    const sundayAvailableCollaborators = sundayColumn.querySelector('.available-collaborators');
 
-            // Temporarily hide the date/time inputs and available collaborators before capturing the columns
-            if (fridayDateTimeInputs) fridayDateTimeInputs.style.display = 'none';
-            if (sundayDateTimeInputs) sundayDateTimeInputs.style.display = 'none';
-            if (fridayAvailableCollaborators) fridayAvailableCollaborators.style.display = 'none';
-            if (sundayAvailableCollaborators) sundayAvailableCollaborators.style.display = 'none';
+    // Temporarily hide the date/time inputs and available collaborators before capturing the columns
+    if (fridayDateTimeInputs) fridayDateTimeInputs.style.display = 'none';
+    if (sundayDateTimeInputs) sundayDateTimeInputs.style.display = 'none';
+    if (fridayAvailableCollaborators) fridayAvailableCollaborators.style.display = 'none';
+    if (sundayAvailableCollaborators) sundayAvailableCollaborators.style.display = 'none';
 
-            try {
-                // Capture Friday column as a canvas (image)
-                const canvasFriday = await html2canvas(fridayColumn, { scale: 2, logging: false, useCORS: true });
-                // Capture Sunday column as a canvas (image)
-                const canvasSunday = await html2canvas(sundayColumn, { scale: 2, logging: false, useCORS: true });
-
-                // Capture observations section if visible
-                let canvasObservations = null;
-                const observationsSection = document.getElementById('observations-section');
-                if (observationsSection && observationsSection.classList.contains('show')) {
-                    canvasObservations = await html2canvas(observationsSection, { scale: 2, logging: false, useCORS: true });
-                }
-
-                // Restore the visibility of the date/time inputs and available collaborators after capturing
-                if (fridayDateTimeInputs) fridayDateTimeInputs.style.display = 'flex';
-                if (sundayDateTimeInputs) sundayDateTimeInputs.style.display = 'flex';
-                if (fridayAvailableCollaborators) fridayAvailableCollaborators.style.display = 'block';
-                if (sundayAvailableCollaborators) sundayAvailableCollaborators.style.display = 'block';
-
-                // Initialize jsPDF
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF('p', 'mm', 'a4');
-
-                const pdfWidth = doc.internal.pageSize.getWidth();
-                const pdfHeight = doc.internal.pageSize.getHeight();
-                const margin = 15; // Increased margin for better spacing
-
-                // Calculate image dimensions to fit within PDF with margins, maintaining aspect ratio
-                const availableWidth = pdfWidth - (margin * 2);
-                const columnGap = 15; // Increased gap between columns
-
-                // Check if we can fit them side-by-side
-                const twoColumnWidth = (availableWidth - columnGap) / 2;
-                const singleColumnWidth = availableWidth;
-
-                // Calculate dimensions for both layouts
-                let imgWidthFriday = twoColumnWidth;
-                let imgHeightFriday = canvasFriday.height * imgWidthFriday / canvasFriday.width;
-
-                let imgWidthSunday = twoColumnWidth;
-                let imgHeightSunday = canvasSunday.height * imgWidthSunday / canvasSunday.width;
-
-                let currentY = margin;
-                const titleSpacing = 15; // Space for titles
-                const sectionSpacing = 10; // Space between sections
-
-                // Add a main title for the PDF
-                doc.setFontSize(20); // Slightly smaller to fit better
-                doc.setFont(undefined, 'bold');
-                doc.text("Producción - Mesas Viernes y Reunión Domingo", pdfWidth / 2, currentY, { align: 'center' });
-                currentY += titleSpacing + 5; // Extra space after main title
-
-                // Get titles
-                const fridayTitle = "";//fridayColumn.querySelector('h2').textContent;
-                const sundayTitle = "";//sundayColumn.querySelector('h2').textContent;
-
-                // Check if both columns can fit side by side with proper spacing
-                const totalHeightNeeded = Math.max(imgHeightFriday, imgHeightSunday) + titleSpacing + sectionSpacing;
-                const canFitSideBySide = (currentY + totalHeightNeeded) < (pdfHeight - margin);
-
-                if (canFitSideBySide && imgWidthFriday <= twoColumnWidth && imgWidthSunday <= twoColumnWidth) {
-                    // Side by side layout
-
-                    // Add Friday Column
-                    doc.setFontSize(14);
-                    doc.setFont(undefined, 'bold');
-                    doc.text(fridayTitle, margin, currentY);
-                    currentY += sectionSpacing;
-
-                    // Add Friday column image
-                    doc.addImage(canvasFriday.toDataURL('image/png'), 'PNG', margin, currentY, imgWidthFriday, imgHeightFriday);
-
-                    // Add Sunday Column (next to Friday)
-                    let sundayX = margin + imgWidthFriday + columnGap;
-                    let sundayY = currentY - sectionSpacing; // Align with Friday title
-
-                    doc.setFontSize(14);
-                    doc.setFont(undefined, 'bold');
-                    doc.text(sundayTitle, sundayX, sundayY);
-                    sundayY += sectionSpacing;
-
-                    // Add Sunday column image
-                    doc.addImage(canvasSunday.toDataURL('image/png'), 'PNG', sundayX, sundayY, imgWidthSunday, imgHeightSunday);
-
-                    // Update currentY for observations
-                    currentY += Math.max(imgHeightFriday, imgHeightSunday);
-
-                } else {
-                    // Stacked layout (one below the other)
-
-                    // Recalculate dimensions for single column width if needed
-                    if (imgWidthFriday > singleColumnWidth) {
-                        imgWidthFriday = singleColumnWidth;
-                        imgHeightFriday = canvasFriday.height * imgWidthFriday / canvasFriday.width;
-                    }
-                    if (imgWidthSunday > singleColumnWidth) {
-                        imgWidthSunday = singleColumnWidth;
-                        imgHeightSunday = canvasSunday.height * imgWidthSunday / canvasSunday.width;
-                    }
-
-                    // Add Friday Column
-                    doc.setFontSize(14);
-                    doc.setFont(undefined, 'bold');
-                    doc.text(fridayTitle, margin, currentY);
-                    currentY += sectionSpacing;
-
-                    // Add Friday column image
-                    doc.addImage(canvasFriday.toDataURL('image/png'), 'PNG', margin, currentY, imgWidthFriday, imgHeightFriday);
-                    currentY += imgHeightFriday + titleSpacing;
-
-                    // Check if Sunday column fits on the same page
-                    if (currentY + imgHeightSunday + sectionSpacing > pdfHeight - margin) {
-                        doc.addPage();
-                        currentY = margin;
-                    }
-
-                    // Add Sunday Column
-                    doc.setFontSize(14);
-                    doc.setFont(undefined, 'bold');
-                    doc.text(sundayTitle, margin, currentY);
-                    currentY += sectionSpacing;
-
-                    // Add Sunday column image
-                    doc.addImage(canvasSunday.toDataURL('image/png'), 'PNG', margin, currentY, imgWidthSunday, imgHeightSunday);
-                    currentY += imgHeightSunday;
-                }
-
-                // Add observations section if it exists
-                if (canvasObservations) {
-                    // Calculate space needed for observations
-                    let obsWidth = singleColumnWidth;
-                    let obsHeight = canvasObservations.height * obsWidth / canvasObservations.width;
-
-                    // Add some spacing before observations
-                    currentY += titleSpacing;
-
-                    // Check if observations fit on current page
-                    if (currentY + obsHeight + titleSpacing > pdfHeight - margin) {
-                        doc.addPage();
-                        currentY = margin;
-                    }
-
-                    // Add observations title
-                    doc.setFontSize(16);
-                    doc.setFont(undefined, 'bold');
-                    doc.text("Observaciones", margin, currentY);
-                    currentY += sectionSpacing;
-
-                    // Add observations image
-                    doc.addImage(canvasObservations.toDataURL('image/png'), 'PNG', margin, currentY, obsWidth, obsHeight);
-                }
-
-                // Generate filename with current date
-                const today = new Date();
-                const year = today.getFullYear();
-                const month = String(today.getMonth() + 1).padStart(2, '0');
-                const day = String(today.getDate()).padStart(2, '0');
-                const dateString = `${year}-${month}-${day}`;
-                const filename = `Produccion_Viernes_y_Domingo_${dateString}.pdf`;
-
-                doc.save(filename);
-
-                // Show success message
-                const messageBox = document.getElementById('message-box');
-                messageBox.textContent = 'PDF generado exitosamente';
-                messageBox.className = 'show info';
-                messageBox.style.display = 'block';
-                setTimeout(() => {
-                    messageBox.classList.remove('show');
-                    setTimeout(() => {
-                        messageBox.style.display = 'none';
-                    }, 300);
-                }, 2000);
-
-            } catch (error) {
-                console.error("Error generating PDF:", error);
-                // Ensure inputs and collaborators are restored even if an error occurs
-                if (fridayDateTimeInputs) fridayDateTimeInputs.style.display = 'flex';
-                if (sundayDateTimeInputs) sundayDateTimeInputs.style.display = 'flex';
-                if (fridayAvailableCollaborators) fridayAvailableCollaborators.style.display = 'block';
-                if (sundayAvailableCollaborators) sundayAvailableCollaborators.style.display = 'block';
-
-                const messageBox = document.getElementById('message-box');
-                messageBox.textContent = 'Error al generar el PDF. Inténtalo de nuevo.';
-                messageBox.className = 'show error';
-                messageBox.style.display = 'block';
-                setTimeout(() => {
-                    messageBox.classList.remove('show');
-                    setTimeout(() => {
-                        messageBox.style.display = 'none';
-                    }, 300);
-                }, 3000);
-            } finally {
-                // Remove loading state
-                button.classList.remove('loading');
-                button.textContent = 'Imprimir Mesas (PDF)';
-            }
+    try {
+        // Capture Friday column as a canvas (image)
+        const canvasFriday = await html2canvas(fridayColumn, { scale: 2, logging: false, useCORS: true });
+        // Capture Sunday column as a canvas (image)
+        const canvasSunday = await html2canvas(sundayColumn, { scale: 2, logging: false, useCORS: true });
+        
+        // Capture observations section if visible
+        let canvasObservations = null;
+        const observationsSection = document.getElementById('observations-section');
+        if (observationsSection && observationsSection.classList.contains('show')) {
+            // Ajustar altura de todos los textareas para mostrar contenido completo
+            const textareas = observationsSection.querySelectorAll('.observation-textarea');
+            const originalHeights = [];
+            textareas.forEach((textarea, index) => {
+                originalHeights[index] = textarea.style.height;
+                textarea.style.height = 'auto';
+                textarea.style.height = Math.max(textarea.scrollHeight + 10, 80) + 'px';
+            });
+            canvasObservations = await html2canvas(observationsSection, { scale: 2, logging: false, useCORS: true });
+            // Restaurar alturas originales de los textareas
+            textareas.forEach((textarea, index) => {
+                textarea.style.height = originalHeights[index] || 'auto';
+            });
         }
+
+        // Restore the visibility of the date/time inputs and available collaborators after capturing
+        if (fridayDateTimeInputs) fridayDateTimeInputs.style.display = 'flex';
+        if (sundayDateTimeInputs) sundayDateTimeInputs.style.display = 'flex';
+        if (fridayAvailableCollaborators) fridayAvailableCollaborators.style.display = 'block';
+        if (sundayAvailableCollaborators) sundayAvailableCollaborators.style.display = 'block';
+
+        // Initialize jsPDF
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF('p', 'mm', 'a4');
+
+        const pdfWidth = doc.internal.pageSize.getWidth();
+        const pdfHeight = doc.internal.pageSize.getHeight();
+        const margin = 15; // Increased margin for better spacing
+
+        // Calculate image dimensions to fit within PDF with margins, maintaining aspect ratio
+        const availableWidth = pdfWidth - (margin * 2);
+        const columnGap = 15; // Increased gap between columns
+
+        // Check if we can fit them side-by-side
+        const twoColumnWidth = (availableWidth - columnGap) / 2;
+        const singleColumnWidth = availableWidth;
+
+        // Calculate dimensions for both layouts
+        let imgWidthFriday = twoColumnWidth;
+        let imgHeightFriday = canvasFriday.height * imgWidthFriday / canvasFriday.width;
+
+        let imgWidthSunday = twoColumnWidth;
+        let imgHeightSunday = canvasSunday.height * imgWidthSunday / canvasSunday.width;
+
+        let currentY = margin;
+        const titleSpacing = 15; // Space for titles
+        const sectionSpacing = 10; // Space between sections
+
+        // Add a main title for the PDF
+        doc.setFontSize(20); // Slightly smaller to fit better
+        doc.setFont(undefined, 'bold');
+        doc.text("Producción - Mesas Viernes y Reunión Domingo", pdfWidth / 2, currentY, { align: 'center' });
+        currentY += titleSpacing + 5; // Extra space after main title
+
+        // Get titles
+        const fridayTitle = fridayColumn.querySelector('h2').textContent;
+        const sundayTitle = sundayColumn.querySelector('h2').textContent;
+
+        // Check if both columns can fit side by side with proper spacing
+        const totalHeightNeeded = Math.max(imgHeightFriday, imgHeightSunday) + titleSpacing + sectionSpacing;
+        const canFitSideBySide = (currentY + totalHeightNeeded) < (pdfHeight - margin);
+
+        if (canFitSideBySide && imgWidthFriday <= twoColumnWidth && imgWidthSunday <= twoColumnWidth) {
+            // Side by side layout
+            
+            // Add Friday Column
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text(fridayTitle, margin, currentY);
+            currentY += sectionSpacing;
+            
+            // Add Friday column image
+            doc.addImage(canvasFriday.toDataURL('image/png'), 'PNG', margin, currentY, imgWidthFriday, imgHeightFriday);
+            
+            // Add Sunday Column (next to Friday)
+            let sundayX = margin + imgWidthFriday + columnGap;
+            let sundayY = currentY - sectionSpacing; // Align with Friday title
+            
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text(sundayTitle, sundayX, sundayY);
+            sundayY += sectionSpacing;
+            
+            // Add Sunday column image
+            doc.addImage(canvasSunday.toDataURL('image/png'), 'PNG', sundayX, sundayY, imgWidthSunday, imgHeightSunday);
+            
+            // Update currentY for observations
+            currentY += Math.max(imgHeightFriday, imgHeightSunday);
+            
+        } else {
+            // Stacked layout (one below the other)
+            
+            // Recalculate dimensions for single column width if needed
+            if (imgWidthFriday > singleColumnWidth) {
+                imgWidthFriday = singleColumnWidth;
+                imgHeightFriday = canvasFriday.height * imgWidthFriday / canvasFriday.width;
+            }
+            if (imgWidthSunday > singleColumnWidth) {
+                imgWidthSunday = singleColumnWidth;
+                imgHeightSunday = canvasSunday.height * imgWidthSunday / canvasSunday.width;
+            }
+            
+            // Add Friday Column
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text(fridayTitle, margin, currentY);
+            currentY += sectionSpacing;
+            
+            // Add Friday column image
+            doc.addImage(canvasFriday.toDataURL('image/png'), 'PNG', margin, currentY, imgWidthFriday, imgHeightFriday);
+            currentY += imgHeightFriday + titleSpacing;
+            
+            // Check if Sunday column fits on the same page
+            if (currentY + imgHeightSunday + sectionSpacing > pdfHeight - margin) {
+                doc.addPage();
+                currentY = margin;
+            }
+            
+            // Add Sunday Column
+            doc.setFontSize(14);
+            doc.setFont(undefined, 'bold');
+            doc.text(sundayTitle, margin, currentY);
+            currentY += sectionSpacing;
+            
+            // Add Sunday column image
+            doc.addImage(canvasSunday.toDataURL('image/png'), 'PNG', margin, currentY, imgWidthSunday, imgHeightSunday);
+            currentY += imgHeightSunday;
+        }
+
+        // Add observations section if it exists
+        if (canvasObservations) {
+            // Calculate space needed for observations
+            let obsWidth = singleColumnWidth;
+            let obsHeight = canvasObservations.height * obsWidth / canvasObservations.width;
+            
+            // Add some spacing before observations
+            currentY += titleSpacing;
+            
+            // Check if observations fit on current page
+            if (currentY + obsHeight + titleSpacing > pdfHeight - margin) {
+                doc.addPage();
+                currentY = margin;
+            }
+            
+            // Add observations title
+            doc.setFontSize(16);
+            doc.setFont(undefined, 'bold');
+            doc.text("Observaciones", margin, currentY);
+            currentY += sectionSpacing;
+            
+            // Add observations image
+            doc.addImage(canvasObservations.toDataURL('image/png'), 'PNG', margin, currentY, obsWidth, obsHeight);
+        }
+
+        // Generate filename with current date
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        const dateString = `${year}-${month}-${day}`;
+        const filename = `Produccion_Viernes_y_Domingo_${dateString}.pdf`;
+
+        doc.save(filename);
+
+        // Show success message
+        const messageBox = document.getElementById('message-box');
+        messageBox.textContent = 'PDF generado exitosamente';
+        messageBox.className = 'show info';
+        messageBox.style.display = 'block';
+        setTimeout(() => {
+            messageBox.classList.remove('show');
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 300);
+        }, 2000);
+
+    } catch (error) {
+        console.error("Error generating PDF:", error);
+        // Ensure inputs and collaborators are restored even if an error occurs
+        if (fridayDateTimeInputs) fridayDateTimeInputs.style.display = 'flex';
+        if (sundayDateTimeInputs) sundayDateTimeInputs.style.display = 'flex';
+        if (fridayAvailableCollaborators) fridayAvailableCollaborators.style.display = 'block';
+        if (sundayAvailableCollaborators) sundayAvailableCollaborators.style.display = 'block';
+        
+        const messageBox = document.getElementById('message-box');
+        messageBox.textContent = 'Error al generar el PDF. Inténtalo de nuevo.';
+        messageBox.className = 'show error';
+        messageBox.style.display = 'block';
+        setTimeout(() => {
+            messageBox.classList.remove('show');
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 300);
+        }, 3000);
+    } finally {
+        // Remove loading state
+        button.classList.remove('loading');
+        button.textContent = 'Imprimir Mesas (PDF)';
+    }
+}
     </script>
 </body>
-
 </html>
