@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Producción - Drag and Drop</title>
+    <title>Somos Producción - Calendar</title>
     <!-- Tailwind CSS CDN for modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- html2canvas CDN for capturing HTML elements as images -->
@@ -547,8 +547,11 @@
             box-sizing: border-box;
             resize: vertical;
             font-family: inherit;
-            overflow: hidden; /* Evita scroll bars en la captura */
-            word-wrap: break-word; /* Permite que las palabras largas se rompan */
+            overflow: hidden;
+            word-wrap: break-word;
+            white-space: pre-wrap; /* Preserva saltos de línea y permite wrap */
+            max-width: 500px; /* Ancho máximo para forzar wrap */
+            width: 100%; /* Asegura que use todo el espacio disponible */
         }
 
         .observation-textarea:focus {
@@ -591,7 +594,7 @@
                 <!-- Columna Viernes -->
                 <div class="column" id="friday-column">
                     <h2>
-                        Mesas Viernes
+                        Viernes
                         <div class="date-time-inputs">
                             <input type="date" id="friday-date">
                             <input type="time" id="friday-time">
@@ -617,7 +620,7 @@
                 <!-- Columna Domingo -->
                 <div class="column" id="sunday-column">
                     <h2>
-                        Reunión Domingo
+                        Domingo
                         <div class="date-time-inputs">
                             <input type="date" id="sunday-date">
                             <input type="time" id="sunday-time">
@@ -647,7 +650,7 @@
             <div id="observations-container"></div>
         </div>
 
-        <button class="print-all-button" onclick="printAllColumnsToPdf()">Imprimir Mesas (PDF)</button>
+        <button class="print-all-button" onclick="printAllColumnsToPdf()">Generar (PDF)</button>
     </div>
 
     <!-- Message Box for user feedback -->
@@ -994,18 +997,61 @@
         let canvasObservations = null;
         const observationsSection = document.getElementById('observations-section');
         if (observationsSection && observationsSection.classList.contains('show')) {
-            // Ajustar altura de todos los textareas para mostrar contenido completo
+            // Crear divs temporales para reemplazar los textareas
             const textareas = observationsSection.querySelectorAll('.observation-textarea');
-            const originalHeights = [];
+            const temporaryDivs = [];
+            
             textareas.forEach((textarea, index) => {
-                originalHeights[index] = textarea.style.height;
-                textarea.style.height = 'auto';
-                textarea.style.height = Math.max(textarea.scrollHeight + 10, 80) + 'px';
+                // Crear div temporal con el contenido del textarea
+                const tempDiv = document.createElement('div');
+                tempDiv.className = 'temp-observation-text';
+                tempDiv.textContent = textarea.value || textarea.placeholder;
+                
+                // Aplicar estilos para mostrar todo el texto
+                tempDiv.style.cssText = `
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e0;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            background-color: white;
+            line-height: 1.5;
+            box-sizing: border-box;
+            font-family: inherit;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            width: 100%;
+            max-width: none;
+            min-height: 80px;
+            color: ${textarea.value ? '#000' : '#9ca3af'};
+            font-style: ${textarea.value ? 'normal' : 'italic'};
+        `;
+                
+                // Reemplazar textarea con div temporal
+                textarea.style.display = 'none';
+                textarea.parentNode.insertBefore(tempDiv, textarea);
+                temporaryDivs.push({ div: tempDiv, textarea: textarea });
             });
-            canvasObservations = await html2canvas(observationsSection, { scale: 2, logging: false, useCORS: true });
-            // Restaurar alturas originales de los textareas
-            textareas.forEach((textarea, index) => {
-                textarea.style.height = originalHeights[index] || 'auto';
+            
+            // Pequeña pausa para que los cambios se apliquen
+            await new Promise(resolve => setTimeout(resolve, 200));
+            
+            canvasObservations = await html2canvas(observationsSection, { 
+                scale: 2, 
+                logging: false, 
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: '#ffffff',
+                width: observationsSection.scrollWidth,
+                height: observationsSection.scrollHeight
+            });
+            
+            // Restaurar textareas y eliminar divs temporales
+            temporaryDivs.forEach(({ div, textarea }) => {
+                div.remove();
+                textarea.style.display = '';
             });
         }
 
@@ -1191,7 +1237,7 @@
     } finally {
         // Remove loading state
         button.classList.remove('loading');
-        button.textContent = 'Imprimir Mesas (PDF)';
+        button.textContent = 'Generar (PDF)';
     }
 }
     </script>
