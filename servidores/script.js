@@ -389,7 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const sundayTitleDate = formatDate(date)
 
         sundayColumnDiv.innerHTML = `
-                    <h2>🎵 Reunión Domingo, ${sundayTitleDate}
+                    <h2>🛡️ Reunión Domingo, ${sundayTitleDate}
                         <div class="date-time-inputs">
                             <input type="date" id="sunday-date-${dateString}" value="${dateString}">
                             <input type="time" id="sunday-time-${dateString}" value="10:30">
