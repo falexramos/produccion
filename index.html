@@ -2,100 +2,590 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <title>Menú Principal | Somos Comunidad Cristiana</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Somos Producción - Calendar</title>
-    <!-- Tailwind CSS CDN for modern styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- html2canvas CDN for capturing HTML elements as images -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- jsPDF CDN for generating PDF documents -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Color Palette */
+            --primary-50: #f0f9ff;
+            --primary-100: #e0f2fe;
+            --primary-500: #0ea5e9;
+            --primary-600: #0284c7;
+            --primary-700: #0369a1;
+            --primary-900: #0c4a6e;
+
+            --secondary-50: #fefce8;
+            --secondary-100: #fef3c7;
+            --secondary-500: #f59e0b;
+            --secondary-600: #d97706;
+
+            --success-50: #f0fdf4;
+            --success-100: #dcfce7;
+            --success-500: #22c55e;
+            --success-600: #16a34a;
+
+            --purple-50: #faf5ff;
+            --purple-100: #f3e8ff;
+            --purple-500: #a855f7;
+            --purple-600: #9333ea;
+
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e0;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+
+            /* Border Radius */
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --radius-full: 9999px;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+            /* Kids Section */
+            --pink-50: #fdf2f8;
+            --pink-100: #fce7f3;
+            --pink-500: #ec4899;
+            --pink-600: #db2777;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--primary-50) 0%, var(--secondary-50) 50%, var(--purple-50) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-md);
+            position: relative;
+            overflow-x: hidden;
+            font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Animated Background Elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+            animation: backgroundShift 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            33% { transform: translateX(-20px) translateY(-10px); }
+            66% { transform: translateX(20px) translateY(10px); }
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, var(--primary-500), var(--purple-500));
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .menu-container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8));
+            border-radius: var(--radius-2xl);
+            box-shadow: 
+                var(--shadow-2xl),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            padding: var(--space-2xl);
+            text-align: center;
+            max-width: 480px;
+            width: 100%;
+            position: relative;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            animation: containerFadeIn 1s ease-out;
+        }
+
+        @keyframes containerFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .menu-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-500), var(--primary-500), var(--purple-500), var(--success-500));
+            background-size: 400% 100%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .logo-header {
+            margin-bottom: var(--space-2xl);
+            position: relative;
+            display: inline-block;
+            animation: logoFadeIn 1.2s ease-out 0.3s both;
+        }
+
+        @keyframes logoFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .logo-wrapper {
+            position: relative;
+            display: inline-block;
+            padding: var(--space-lg);
+            background: linear-gradient(135deg, var(--secondary-100), var(--secondary-50));
+            border-radius: var(--radius-xl);
+            box-shadow: 
+                0 20px 40px rgba(245, 158, 11, 0.2),
+                0 0 0 1px rgba(245, 158, 11, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .logo-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--secondary-500), var(--primary-500), var(--purple-500), var(--secondary-500));
+            background-size: 400% 400%;
+            border-radius: var(--radius-xl);
+            z-index: -1;
+            animation: borderGlow 4s ease infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-wrapper:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .logo-wrapper:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 
+                0 30px 60px rgba(245, 158, 11, 0.3),
+                0 0 0 1px rgba(245, 158, 11, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .logo-header img {
+            max-width: 220px;
+            width: 100%;
+            height: auto;
+            border-radius: var(--radius-lg);
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+
+        .logo-wrapper:hover .logo-header img {
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15)) brightness(1.05);
+        }
+
+        .main-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: var(--space-lg);
+            background: linear-gradient(135deg, var(--primary-600), var(--primary-700), var(--purple-600));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.025em;
+            position: relative;
+            animation: titleFadeIn 1.4s ease-out 0.6s both;
+        }
+
+        @keyframes titleFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-500), var(--purple-500));
+            border-radius: var(--radius-full);
+            animation: underlineExpand 1s ease-out 1.2s both;
+        }
+
+        @keyframes underlineExpand {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 80px;
+                opacity: 1;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            margin-bottom: var(--space-2xl);
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: subtitleFadeIn 1.6s ease-out 0.9s both;
+        }
+
+        @keyframes subtitleFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-md);
+            padding: var(--space-lg) var(--space-xl);
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            color: white;
+            border-radius: var(--radius-xl);
+            font-size: 1.125rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid transparent;
+            min-height: 64px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            animation: linkFadeIn 0.6s ease-out both;
+        }
+
+        .menu-link:nth-child(1) {
+            animation-delay: 1.2s;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+        }
+
+        .menu-link:nth-child(2) {
+            animation-delay: 1.4s;
+            background: linear-gradient(135deg, var(--secondary-500), var(--secondary-600));
+        }
+
+        .menu-link:nth-child(3) {
+            animation-delay: 1.6s;
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+        }
+
+        .menu-link:nth-child(4) {
+            animation-delay: 1.8s;
+            background: linear-gradient(135deg, var(--pink-500), var(--pink-600));
+        }
+
+        @keyframes linkFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .menu-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .menu-link:hover::before {
+            left: 100%;
+        }
+
+        .menu-link:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.15),
+                0 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+
+        .menu-link:nth-child(1):hover {
+            box-shadow: 
+                0 20px 40px rgba(14, 165, 233, 0.3),
+                0 0 0 3px rgba(14, 165, 233, 0.1);
+            background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+        }
+
+        .menu-link:nth-child(2):hover {
+            box-shadow: 
+                0 20px 40px rgba(245, 158, 11, 0.3),
+                0 0 0 3px rgba(245, 158, 11, 0.1);
+            background: linear-gradient(135deg, var(--secondary-600), var(--secondary-600));
+        }
+
+        .menu-link:nth-child(3):hover {
+            box-shadow: 
+                0 20px 40px rgba(34, 197, 94, 0.3),
+                0 0 0 3px rgba(34, 197, 94, 0.1);
+            background: linear-gradient(135deg, var(--success-600), var(--success-600));
+        }
+
+        .menu-link:nth-child(4):hover {
+            box-shadow: 
+                0 20px 40px rgba(236, 72, 153, 0.3),
+                0 0 0 3px rgba(236, 72, 153, 0.1);
+            background: linear-gradient(135deg, var(--pink-600), var(--pink-600));
+        }
+
+        .menu-link:active {
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        /* Responsive Design */
+        @media (max-width: 640px) {
+            .menu-container {
+                padding: var(--space-xl);
+                max-width: 95vw;
+                margin: var(--space-md);
+            }
+
+            .logo-wrapper {
+                padding: var(--space-md);
+            }
+
+            .logo-header img {
+                max-width: 160px;
+            }
+
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: var(--space-xl);
+            }
+
+            .menu-link {
+                font-size: 1rem;
+                padding: var(--space-md) var(--space-lg);
+                min-height: 56px;
+            }
+
+            .menu-icon {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.75rem;
+            }
+
+            .menu-list {
+                gap: var(--space-md);
+            }
+
+            .menu-link {
+                padding: var(--space-sm) var(--space-md);
+                min-height: 48px;
+                font-size: 0.9rem;
+            }
+
+            .menu-icon {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo-header">
-            <!-- Placeholder for logo_letras_comunidad_somos.PNG -->
-            <!-- In a real project, this would be: <img src="img/logo_letras_comunidad_somos.PNG" alt="Logo Somos Comunidad Cristiana"> -->
-            <img src="img/logo_letras_comunidad_somos.PNG" alt="Logo Somos Comunidad Cristiana">
-        </div>
-        <h1>
-            <!-- SVG Icon -->
-            <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 2000">
-                <path d="m601.2,999.81c.52-220.92,179.26-400.1,401.88-398.51,219.32,1.57,397.38,179.91,395.62,402.13-1.74,219.17-180.11,397.24-402.51,395.25-218.5-1.96-394.57-179-394.99-398.88Zm398.91-368.6c-203.38.59-367.22,163.47-368.75,365.83-1.55,205.27,162.93,370.17,365.81,371.62,205.34,1.47,370.56-163.27,371.44-366.43.89-205.4-164.35-371.01-368.5-371.01Z" fill="#020200" stroke-width="0"/>
-                <path d="m999.81,1243.49c-129.16,0-239.4-90.91-264.5-218.19-3.06-15.54-4.43-31.29-4.85-47.13-.08-3.1.57-4.38,4.06-4.26,8.49.28,17.01.36,25.49-.02,4.3-.2,4.89,1.54,4.92,5.19.26,31.55,6.73,61.89,20.12,90.4,35.91,76.45,95.51,123.55,178.91,136.86,76.22,12.17,143.54-9.82,199.36-63.36,46.46-44.57,70.22-99.78,71.75-164.3.09-3.65,1-4.9,4.8-4.76,8.15.3,16.34.33,24.49,0,4.12-.17,5.35.89,5.23,5.15-1.03,38.08-8.69,74.71-25.4,108.99-39.61,81.28-103.92,131.44-192.27,150.56-17.12,3.7-34.56,5.1-52.11,4.89Z" fill="#020200" stroke-width="0"/>
-            </svg>
-            Producción
-        </h1>
-        <div class="main-columns-layout">
-            <!-- Grupo de Columnas de Mesas (Viernes y Domingo) -->
-            <div class="tables-column-group">
-                <!-- Columna Viernes -->
-                <div class="column" id="friday-column">
-                    <h2>
-                        Viernes
-                        <div class="date-time-inputs">
-                            <input type="date" id="friday-date">
-                            <input type="time" id="friday-time">
-                        </div>
-                    </h2>
-                    <div class="available-collaborators">
-                        <h3>Colaboradores disponibles:</h3>
-                        <div class="collaborators-grid">
-                            <div class="draggable-item" data-name="Lato" draggable="true">Lato</div>
-                            <div class="draggable-item" data-name="Herlan" draggable="true">Herlan</div>
-                            <div class="draggable-item" data-name="Santi-Jair" draggable="true">Santi (Jair)</div>
-                            <div class="draggable-item" data-name="Abigail" draggable="true">Abigaíl</div>
-                            <div class="draggable-item" data-name="Yoesmith" draggable="true">Yoesmith</div>
-                            <div class="draggable-item" data-name="Andrea" draggable="true">Andrea</div>
-                            <div class="draggable-item" data-name="Israel" draggable="true">Israel</div>
-                            <div class="draggable-item" data-name="Josue" draggable="true">Josué</div>
-                            <div class="draggable-item" data-name="Johan" draggable="true">Johan</div>
-                        </div>
-                    </div>
-                    <div class="drop-zone"></div>
-                </div>
+    <!-- Floating Particles -->
+    <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+    <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+    <div class="particle" style="left: 40%; animation-delay: 6s;"></div>
+    <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
+    <div class="particle" style="left: 60%; animation-delay: 10s;"></div>
+    <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
+    <div class="particle" style="left: 80%; animation-delay: 14s;"></div>
+    <div class="particle" style="left: 90%; animation-delay: 16s;"></div>
 
-                <!-- Columna Domingo -->
-                <div class="column" id="sunday-column">
-                    <h2>
-                        Domingo
-                        <div class="date-time-inputs">
-                            <input type="date" id="sunday-date">
-                            <input type="time" id="sunday-time">
-                        </div>
-                    </h2>
-                    <div class="available-collaborators">
-                        <h3>Colaboradores disponibles:</h3>
-                        <div class="collaborators-grid">
-                            <div class="draggable-item" data-name="Lato" draggable="true">Lato</div>
-                            <div class="draggable-item" data-name="Herlan" draggable="true">Herlan</div>
-                            <div class="draggable-item" data-name="Santi-Jair" draggable="true">Santi (Jair)</div>
-                            <div class="draggable-item" data-name="Abigail" draggable="true">Abigaíl</div>
-                            <div class="draggable-item" data-name="Yoesmith" draggable="true">Yoesmith</div>
-                            <div class="draggable-item" data-name="Andrea" draggable="true">Andrea</div>
-                            <div class="draggable-item" data-name="Israel" draggable="true">Israel</div>
-                            <div class="draggable-item" data-name="Josue" draggable="true">Josué</div>
-                            <div class="draggable-item" data-name="Johan" draggable="true">Johan</div>
-                        </div>
-                    </div>
-                    <div class="drop-zone"></div>
-                </div>
+    <div class="menu-container">
+        <div class="logo-header">
+            <div class="logo-wrapper">
+                <img src="img/logo_letras_comunidad_somos.PNG" alt="Logo Somos Comunidad Cristiana">
             </div>
         </div>
-        <!-- Observations Section -->
-        <div class="observations-section" id="observations-section">
-            <h3>Observaciones</h3>
-            <div id="observations-container"></div>
+        
+        <h1 class="main-title">Somos Comunidad Cristiana</h1>
+        
+        <div class="subtitle">
+            Bienvenido al sistema de gestión de colaboradores.<br>
+            Selecciona una sección para organizar y visualizar los equipos de trabajo.
         </div>
+        
+        <div class="menu-list">
+            <a class="menu-link" href="produccion/index.html">
+                <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                </svg>
+                Producción
+            </a>
+            
+            <a class="menu-link" href="cafeteria/index.html">
+                <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+                </svg>
+                Cafetería
+            </a>
+            
+            <a class="menu-link" href="servidores/index.html">
+                <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                Servidores
+            </a>
 
-        <button class="print-all-button" onclick="printAllColumnsToPdf()">Generar (PDF)</button>
+            <a class="menu-link" href="kids/index.html">
+                <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.01M15 10h1.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Kids
+            </a>
+        </div>
     </div>
-
-    <!-- Message Box for user feedback -->
-    <div id="message-box"></div>
-
-<script src="script.js" language="javascript" type="text/javascript"></script>
-
 </body>
 </html>
