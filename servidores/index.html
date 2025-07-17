@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Somos  Ujieres - Domingos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <a href="../index.html" class="floating-home-btn">🏠 Inicio</a>
+    <div class="app-container">
+        <div class="header-section" id="top-section">
+            <div class="logo-container">
+                <div class="logo-wrapper">
+                    <img src="../img/logo_letras_comunidad_somos.PNG" alt="Logo Somos Comunidad Cristiana" class="logo-image">
+                    <div class="logo-overlay">
+                        <div class="logo-shine"></div>
+                    </div>
+                </div>
+                <div class="logo-badge">
+                    <span class="badge-text">Comunidad Cristiana Somos</span>
+                </div>
+            </div>
+            <div class="title-container">
+                <svg class="title-icon" viewBox="0 0 2000 2000" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m601.2,999.81c.52-220.92,179.26-400.1,401.88-398.51,219.32,1.57,397.38,179.91,395.62,402.13-1.74,219.17-180.11,397.24-402.51,395.25-218.5-1.96-394.57-179-394.99-398.88Zm398.91-368.6c-203.38.59-367.22,163.47-368.75,365.83-1.55,205.27,162.93,370.17,365.81,371.62,205.34,1.47,370.56-163.27,371.44-366.43.89-205.4-164.35-371.01-368.5-371.01Z" fill="currentColor"/>
+                    <path d="m999.81,1243.49c-129.16,0-239.4-90.91-264.5-218.19-3.06-15.54-4.43-31.29-4.85-47.13-.08-3.1.57-4.38,4.06-4.26,8.49.28,17.01.36,25.49-.02,4.3-.2,4.89,1.54,4.92,5.19.26,31.55,6.73,61.89,20.12,90.4,35.91,76.45,95.51,123.55,178.91,136.86,76.22,12.17,143.54-9.82,199.36-63.36,46.46-44.57,70.22-99.78,71.75-164.3.09-3.65,1-4.9,4.8-4.76,8.15.3,16.34.33,24.49,0,4.12-.17,5.35.89,5.23,5.15-1.03,38.08-8.69,74.71-25.4,108.99-39.61,81.28-103.92,131.44-192.27,150.56-17.12,3.7-34.56,5.1-52.11,4.89Z" fill="currentColor"/>
+                </svg>
+                <h1 class="main-title">Ujieres</h1>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="main-columns-layout" id="main-columns-layout">
+                <div id="sunday-columns-grid-container" class="sunday-columns-container">
+                </div>
+            </div>
+
+            <div class="observations-section" id="observations-section">
+                <div class="observations-header">
+                    <h3 class="observations-title">📝 Observaciones</h3>
+                    <p class="observations-subtitle">Notas y comentarios para cada colaborador</p>
+                </div>
+                <div id="observations-container" class="observations-grid"></div>
+            </div>
+
+            <div class="actions-section">
+                <button class="generate-pdf-button" onclick="printAllColumnsToPdf()">
+                    <svg class="button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <span class="button-text">Generar PDF</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="message-box" class="notification-toast"></div>
+
+    <script src="script.js" language="javascript" type="text/javascript"></script>
+</body>
+
+</html>
