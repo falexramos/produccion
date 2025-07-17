@@ -14,13 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Define the list of collaborators that will appear in each Sunday's section
   const collaboratorsList = [
-    "Marlon",
-    "Marly",
-    "Claudita",
-    "Ari",
+    "Jessica",
+    "Cindy",
+    "Valentina",
     "Silvia",
-    "Mafe",
-    // Puedes añadir o modificar nombres aquí según sea necesario
   ]
 
   // Back to top button functionality
@@ -588,7 +585,7 @@ async function printAllColumnsToPdf() {
 
     // Save PDF with enhanced filename
     const dateString = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
-    const filename = `cafeteria_Domingos_${dateString}.pdf`
+    const filename = `kids_Domingos_${dateString}.pdf`
     doc.save(filename)
 
     // Show success message

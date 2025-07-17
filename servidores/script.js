@@ -594,7 +594,7 @@ async function printAllColumnsToPdf() {
 
     // Save PDF with enhanced filename
     const dateString = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`
-    const filename = `Produccion_Domingos_${dateString}.pdf`
+    const filename = `ujieres_Domingos_${dateString}.pdf`
     doc.save(filename)
 
     // Show success message
